@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactsUpload;
 use Illuminate\Http\Request;
 
 class Actions extends Controller
@@ -25,5 +26,31 @@ class Actions extends Controller
             'success' => true,
             'message' => 'Location Updated Successfully'
         ]);
+    }
+
+    public function contactsUpload(Request $request){
+        $this->validate($request,[
+            'contacts' => 'required|string',
+        ]);
+        $contacts = $request->input('contacts');
+        auth()->user()->contactsUpload($contacts);
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Contacts Uploaded'
+        ]);
+    }
+
+    public function getFriendsContactsUploads(){
+        $contactsUpload = new ContactsUpload();
+        $data =  $contactsUpload->getFriendsContactsUploads();
+
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+
     }
 }

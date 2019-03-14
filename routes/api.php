@@ -49,5 +49,7 @@ Route::group([
 ], function ($router) {
 
     Route::post('updateLocation', 'Actions@updateLocation');
+    Route::post('contactsUpload', 'Actions@contactsUpload');
+    Route::get('getFriendsContactsUploads', 'Actions@getFriendsContactsUploads');
 
 });

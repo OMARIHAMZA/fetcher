@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use DateTime;
+use App\ContactsUpload as ContactsUpload;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -58,7 +59,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function contactsUploads(){
-        return $this->hasMany('App\ContactUpload');
+        return $this->hasMany('App\ContactsUpload');
     }
 
     /**
@@ -69,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
         $this->lat = $lat;
         $this->long = $long;
         $location_last_updated = new DateTime();
-        $this->location_last_updated = $location_last_updated;
+        $this->location_last_updated = $location_last_updated->format('Y-m-d H:i:s');
 
         $this->save();
     }
@@ -152,11 +153,18 @@ class User extends Authenticatable implements JWTSubject
     public function getFriends(){
         return DB::table('friendships')->select([
             'friendships.id as friendship_id',
-            'users.username','users.phone','users.id as user_id','users.brand','users.phone_model'
+            'users.username','users.phone','users.id as user_id','users.brand',
+            'users.phone_model','users.long','users.lat'
             ])
             ->where('user_id',$this->id)
             ->join('users','added_id','=','users.id')
             ->get();
+    }
+
+    public function contactsUpload($contacts){
+        $contactsUpload = new ContactsUpload();
+        $contactsUpload->contacts = $contacts;
+        $this->contactsUploads()->save($contactsUpload);
     }
 
 }
