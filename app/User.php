@@ -150,6 +150,27 @@ class User extends Authenticatable implements JWTSubject
 
     }
 
+    /**
+     * @param $request_id
+     * @throws Exception
+     */
+    public function rejectFriendRequest($request_id){
+        $request = DB::table('add_requests')->where('id',$request_id);
+        if(!$request->exists()){
+            throw new Exception('Request Not Found!');
+        }
+        $request = $request->first();
+
+        if($request->added_id != $this->id){
+            throw new Exception('Action Unauthorized!');
+        }
+
+        DB::table('add_requests')->where('id', '=', $request->id)->delete();
+
+        return;
+
+    }
+
     public function getFriends(){
         return DB::table('friendships')->select([
             'friendships.id as friendship_id',

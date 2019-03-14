@@ -50,6 +50,20 @@ class Profile extends Controller
         ]);
     }
 
+    public function rejectFriendRequest(Request $request){
+
+        $this->validate($request,[
+            'request_id' => 'required|integer'
+        ]);
+
+        auth()->user()->acceptFriendRequest($request->input('request_id'));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Request Rejected Successfully!'
+        ]);
+    }
+
     public function getFriends(){
         return response()->json([
             'success' => true,

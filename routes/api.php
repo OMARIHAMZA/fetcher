@@ -37,6 +37,7 @@ Route::group([
     Route::get('getFriendRequests', 'Profile@getFriendRequests');
     Route::post('addFriendship', 'Profile@addFriendship');
     Route::post('acceptFriendRequest', 'Profile@acceptFriendRequest');
+    Route::post('rejectFriendRequest', 'Profile@rejectFriendRequest');
     Route::get('getFriends', 'Profile@getFriends');
 
 });
