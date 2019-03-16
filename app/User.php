@@ -175,7 +175,7 @@ class User extends Authenticatable implements JWTSubject
         return DB::table('friendships')->select([
             'friendships.id as friendship_id',
             'users.username','users.phone','users.id as user_id','users.brand',
-            'users.phone_model','users.long','users.lat'
+            'users.phone_model','users.long','users.lat','users.location_last_updated'
             ])
             ->where('user_id',$this->id)
             ->join('users','added_id','=','users.id')
