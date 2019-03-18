@@ -39,6 +39,39 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
+                            <label for="mobile" class="col-md-4 control-label">Mobile</label>
+
+                            <div class="col-md-6">
+                                <input id="mobile" type="text" class="form-control" name="mobile" value="{{ old('mobile') }}" required>
+
+                                @if ($errors->has('mobile'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('mobile') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
+                            <label for="type" class="col-md-4 control-label">You Are</label>
+
+                            <div class="col-md-6">
+                                <select class="custom-select" id="type" name="type">
+                                    <option selected disabled>Open this select menu</option>
+                                    <option value="2">Company</option>
+                                    <option value="3">Person</option>
+                                </select>
+
+                                @if ($errors->has('type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -60,6 +93,8 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

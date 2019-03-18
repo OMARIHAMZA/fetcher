@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::group([
 
     'middleware' => 'api',
@@ -30,27 +31,48 @@ Route::group([
 Route::group([
 
     'middleware' => 'api',
-    'prefix' => 'profile'
+    'prefix' => 'companies'
 
 ], function ($router) {
 
-    Route::get('getFriendRequests', 'Profile@getFriendRequests');
-    Route::post('addFriendship', 'Profile@addFriendship');
-    Route::post('acceptFriendRequest', 'Profile@acceptFriendRequest');
-    Route::post('rejectFriendRequest', 'Profile@rejectFriendRequest');
-    Route::get('getFriends', 'Profile@getFriends');
+    Route::get('currentCompany', 'Companies@currentCompany');
+    Route::post('update/{id}', 'Companies@update');
+    Route::post('addBranch', 'Companies@addBranch');
+    Route::post('addCompanyPhoto', 'Companies@addCompanyPhoto');
 
 });
 
 Route::group([
 
     'middleware' => 'api',
-    'prefix' => 'actions'
+    'prefix' => 'projects'
 
 ], function ($router) {
 
-    Route::post('updateLocation', 'Actions@updateLocation');
-    Route::post('contactsUpload', 'Actions@contactsUpload');
-    Route::get('getFriendsContactsUploads', 'Actions@getFriendsContactsUploads');
+    Route::post('add', 'Projects@add');
 
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'trainingOpportunities'
+
+], function ($router) {
+
+    Route::post('add', 'TrainingOpportunities@add');
+    Route::get('getByCategory/{category_id}','TrainingOpportunities@getByCategory');
+    Route::get('getByCompany/{company_id}','TrainingOpportunities@getByCompany');
+
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'jobOpportunities'
+
+], function ($router) {
+    Route::post('add', 'JobOpportunities@add');
+    Route::get('getByCategory/{category_id}', 'JobOpportunities@getByCategory');
+    Route::get('getByCompany/{company_id}','JobOpportunities@getByCompany');
 });

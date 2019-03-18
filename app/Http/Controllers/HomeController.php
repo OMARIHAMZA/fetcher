@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:web');
+        $this->middleware('auth');
     }
 
     /**
@@ -21,8 +23,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $data = [];
+        if($request->user()->isCompany()){
+            $company = $request->user()->company()->first();
+            $data['company_id'] = $company['id'];
+            $data['user_id'] = $company['user_id'];
+            $data['name'] = $company['name'];
+            $data['website'] = $company['website'];
+            $data['official_email'] = $company['official_email'];
+            $data['main_address'] = $company['main_address'];
+        }
+        return view('home',$data);
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Phone;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Company;
 use Illuminate\Http\Request;
+
 class AuthController extends Controller
 {
     /**
@@ -25,10 +26,10 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['username', 'password']);
+        $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['success'=> false ,'error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -37,18 +38,24 @@ class AuthController extends Controller
     public function register(Request $request){
 
         $this->validate($request,[
-            'username' => 'required|string|unique:users',
-            'password' => 'required|min:6',
-            'phone' => 'required|unique:users',
-            'brand' => 'required',
-            'phone_model' => 'required'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'mobile' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'type' => 'required|integer|min:2|max:3',
         ]);
 
-        $attr = $request->only(['username', 'password','phone','brand','phone_model']);
+        $attr = $request->only(['name', 'email','mobile','type','password']);
         $attr['password'] = bcrypt($attr['password']);
 
         $user = new \App\User($attr);
         $user->save();
+
+        if($attr['type']==2){
+            $company = new Company;
+
+            $user->company()->save($company);
+        }
 
         $token = auth()->login($user);
 
@@ -62,10 +69,12 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json([
-            'success' => true ,
-            'user'=> auth()->user()
-        ]);
+        return response()->json(
+            [
+                'success'=> true,
+                'user' => auth()->user()
+            ]
+        );
     }
 
     /**
@@ -77,7 +86,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['success' => true ,'message' => 'Successfully logged out']);
+        return response()->json(['success'=> true,'message' => 'Successfully logged out']);
     }
 
     /**

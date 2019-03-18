@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContacsUploadsTable extends Migration
+class CreateBranchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateContacsUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts_uploads', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')
-                ->on('users')->onDelete('cascade');
+            $table->unsignedInteger('company_id');
+            $table->foreign('company_id')
+                ->references('id')->on('companies')
+                ->onDelete('cascade');
 
-            $table->longText('contacts');
+            $table->string('address');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateContacsUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacs_uploads');
+        Schema::dropIfExists('branches');
     }
 }

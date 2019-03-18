@@ -4,8 +4,12 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -50,11 +54,29 @@ class Handler extends ExceptionHandler
                 'errors' => $exception->validator->errors()
             ]);
         }
+        if ($exception instanceof ModelNotFoundException){
+            return response()->json([
+                'success' => false,
+                'errors' => 'Resource Not Found'
+            ],404);
+        }
+        if ($exception instanceof NotFoundHttpException){
+            return response()->json([
+                'success' => false,
+                'errors' => 'Resource Not Found'
+            ],$exception->getStatusCode());
+        }
+        if ($exception instanceof HttpException){
+            return response()->json([
+                'success' => false,
+                'errors' => $exception->getMessage()
+            ],$exception->getStatusCode());
+        }
         if($exception != null){
             return response()->json([
                 'success' => false,
                 'message' => $exception->getMessage()
-            ]);
+            ],500);
         }
         return parent::render($request, $exception);
     }
