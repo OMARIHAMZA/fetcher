@@ -44,6 +44,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne('App\Company','user_id');
     }
 
+    public function person(){
+        return $this->hasOne('App\Person','user_id');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

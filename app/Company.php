@@ -28,6 +28,20 @@ class Company extends Model
         return $this->hasMany('App\JobOpportunity');
     }
 
+    public function employments(){
+        return $this->hasMany('App\Employment');
+    }
+    public function trainings(){
+        return $this->hasMany('App\Training');
+    }
+
+    public function companyEvaluations(){
+        return $this->hasMany('App\CompanyEvaluation');
+    }
+    public function personEvaluations(){
+        return $this->hasMany('App\PersonEvaluation');
+    }
+
     public function addCompanyPhoto(CompanyPhoto $companyPhoto){
         $this->companyPhotos()->save($companyPhoto);
     }

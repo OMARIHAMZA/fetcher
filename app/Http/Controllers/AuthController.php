@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Person;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Company;
@@ -55,6 +56,12 @@ class AuthController extends Controller
             $company = new Company;
 
             $user->company()->save($company);
+        }
+
+        if($attr['type']==3){
+            $person = new Person();
+
+            $user->person()->save($person);
         }
 
         $token = auth()->login($user);

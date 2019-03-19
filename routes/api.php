@@ -76,3 +76,46 @@ Route::group([
     Route::get('getByCategory/{category_id}', 'JobOpportunities@getByCategory');
     Route::get('getByCompany/{company_id}','JobOpportunities@getByCompany');
 });
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'people'
+
+], function ($router) {
+    Route::get('currentPerson', 'People@currentPerson');
+    Route::get('info/{id}', 'People@info');
+    Route::post('edit/{id}', 'People@edit');
+    Route::post('addCertificate', 'People@addCertificate');
+    Route::post('addWork', 'People@addWork');
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'opportunityApplications'
+
+], function ($router) {
+
+    // Apply
+    Route::post('applyForTraining', 'OpportunityApplications@applyForTraining');
+    Route::post('applyForJob', 'OpportunityApplications@applyForJob');
+
+    // Reject
+    Route::post('rejectTrainingApplication', 'OpportunityApplications@rejectTrainingApplication');
+    Route::post('rejectJobApplication', 'OpportunityApplications@rejectJobApplication');
+
+    // Accept
+    Route::post('acceptTrainingApplication', 'OpportunityApplications@acceptTrainingApplication');
+    Route::post('acceptJobApplication', 'OpportunityApplications@acceptJobApplication');
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'evaluations'
+
+], function ($router) {
+    Route::post('evaluateCompany', 'Evaluations@evaluateCompany');
+    Route::post('evaluatePerson', 'Evaluations@evaluatePerson');
+});
