@@ -41,6 +41,10 @@ Route::group([
     Route::post('addBranch', 'Companies@addBranch');
     Route::post('addCompanyPhoto', 'Companies@addCompanyPhoto');
 
+    Route::post('deleteBranch', 'Companies@deleteBranch');
+    Route::post('deleteCompanyPhoto', 'Companies@deleteCompanyPhoto');
+    Route::post('deleteProject', 'Companies@deleteProject');
+
 });
 
 Route::group([
