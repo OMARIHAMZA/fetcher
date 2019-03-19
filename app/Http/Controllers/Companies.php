@@ -13,9 +13,22 @@ class Companies extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['info']]);
     }
+    public function info($id){
+        $company = Company::findOrFail($id);
+        $branches = $company->branches()->get();
+        $photos = $company->companyPhotos()->get();
+        $projects = $company->projects()->get();
 
+        return response()->json([
+            'success'=>true,
+            'company' => $company,
+            'branches' => $branches,
+            'photos' => $photos,
+            'projects'=> $projects
+        ]);
+    }
     public function currentCompany(){
         $this->authorize('isCompany',Company::class);
         $company = auth()->user()->company()->first();

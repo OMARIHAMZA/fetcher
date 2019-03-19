@@ -36,6 +36,7 @@ Route::group([
 ], function ($router) {
 
     Route::get('currentCompany', 'Companies@currentCompany');
+    Route::get('info/{id}', 'Companies@info');
     Route::post('update/{id}', 'Companies@update');
     Route::post('addBranch', 'Companies@addBranch');
     Route::post('addCompanyPhoto', 'Companies@addCompanyPhoto');
