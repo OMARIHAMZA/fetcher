@@ -88,6 +88,8 @@ Route::group([
     Route::post('edit/{id}', 'People@edit');
     Route::post('addCertificate', 'People@addCertificate');
     Route::post('addWork', 'People@addWork');
+    Route::post('deleteCertificate', 'People@deleteCertificate');
+    Route::post('deleteWork', 'People@deleteWork');
 });
 
 Route::group([

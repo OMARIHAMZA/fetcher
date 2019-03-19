@@ -6,6 +6,7 @@ use App\Certificate;
 use App\Person;
 use App\Work;
 use Illuminate\Http\Request;
+use Illuminate\Validation\UnauthorizedException;
 
 class People extends Controller
 {
@@ -75,6 +76,24 @@ class People extends Controller
 
     }
 
+    public function deleteCertificate(Request $request){
+        $this->validate($request,[
+            'certificate_id' => 'required|integer'
+        ]);
+
+        $certificate = Certificate::findOrFail($request->input('certificate_id'));
+
+        if($certificate->person_id != auth()->user()->person()->first()->id){
+            throw new UnauthorizedException('Action Unauthorized');
+        }
+        $certificate->delete();
+        return response()->json([
+            'success'=>true,
+            'message'=>"Certificate deleted Successfully!"
+        ]);
+
+    }
+
     public function addWork(Request $request){
         $this->validate($request,[
             'person_id' => 'required|integer',
@@ -100,6 +119,24 @@ class People extends Controller
             'success'=>true,
             'message'=>"Work Added Successfully!"
         ]);
+    }
+
+    public function deleteWork(Request $request){
+        $this->validate($request,[
+            'work_id' => 'required|integer'
+        ]);
+
+        $work = Work::findOrFail($request->input('work_id'));
+
+        if($work->person_id != auth()->user()->person()->first()->id){
+            throw new UnauthorizedException('Action Unauthorized');
+        }
+        $work->delete();
+        return response()->json([
+            'success'=>true,
+            'message'=>"Work deleted Successfully!"
+        ]);
+
     }
 
     public function info($id){
