@@ -34,7 +34,9 @@ class Company extends Model
     public function trainings(){
         return $this->hasMany('App\Training');
     }
-
+    public function personMessages(){
+        return $this->hasMany('App\PersonMessage');
+    }
     public function companyEvaluations(){
         return $this->hasMany('App\CompanyEvaluation');
     }

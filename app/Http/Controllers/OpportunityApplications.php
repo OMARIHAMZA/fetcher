@@ -6,6 +6,7 @@ use App\Employment;
 use App\JobOpportunity;
 use App\Person;
 use App\PersonJobApplication;
+use App\PersonMessage;
 use App\PersonTrainingApplication;
 use App\Training;
 use App\TrainingOpportunity;
@@ -87,6 +88,7 @@ class OpportunityApplications extends Controller
     public function acceptTrainingApplication(Request $request){
         $this->validate($request,[
             'person_training_application_id' => 'required|integer',
+            'message' => 'required|string'
         ]);
 
 
@@ -103,6 +105,10 @@ class OpportunityApplications extends Controller
         $trainig->add($company,$person);
         $trainingApplication->delete();
 
+        $attr = $request->only(['message']);
+        $personMessage = new PersonMessage($attr);
+        $personMessage->add($person,$company);
+
         return response()->json([
             'success' => true,
             'message' => 'Accepted Successfully'
@@ -112,6 +118,7 @@ class OpportunityApplications extends Controller
     public function acceptJobApplication(Request $request){
         $this->validate($request,[
             'person_job_application_id' => 'required|integer',
+            'message' => 'required|string'
         ]);
 
 
@@ -127,6 +134,11 @@ class OpportunityApplications extends Controller
 
         $employment->add($company,$person);
         $jobApplication->delete();
+
+
+        $attr = $request->only(['message']);
+        $personMessage = new PersonMessage($attr);
+        $personMessage->add($person,$company);
 
         return response()->json([
             'success' => true,

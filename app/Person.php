@@ -30,7 +30,9 @@ class Person extends Model
     public function personEvaluations(){
         return $this->hasMany('App\PersonEvaluation');
     }
-
+    public function personMessages(){
+        return $this->hasMany('App\PersonMessage');
+    }
     public function personJobApplication(){
         return $this->hasMany('App\PersonJobApplication');
     }

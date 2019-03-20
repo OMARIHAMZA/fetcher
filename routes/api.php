@@ -91,6 +91,7 @@ Route::group([
 ], function ($router) {
     Route::get('currentPerson', 'People@currentPerson');
     Route::get('info/{id}', 'People@info');
+    Route::get('getMessages/{person_id}', 'People@getMessages');
     Route::post('edit/{id}', 'People@edit');
     Route::post('addCertificate', 'People@addCertificate');
     Route::post('addWork', 'People@addWork');

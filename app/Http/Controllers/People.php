@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Certificate;
 use App\Person;
+use App\PersonMessage;
 use App\Work;
 use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
@@ -135,6 +136,30 @@ class People extends Controller
         return response()->json([
             'success'=>true,
             'message'=>"Work deleted Successfully!"
+        ]);
+    }
+
+    public function getMessages($person_id){
+
+        $person = Person::findOrFail($person_id);
+
+        $messages = PersonMessage::where('person_id','=',$person_id)
+            ->join('companies','company_id','=','companies.id')->get(
+                ['person_messages.id as message_id','companies.id as id',
+                    'person_messages.message','companies.name','official_email','website','main_address']
+            );
+
+        foreach ($messages as $message){
+            $message->delete();
+
+            $fordel = PersonMessage::find($message->message_id);
+
+            $fordel->delete();
+        }
+
+        return response()->json([
+            'success'=>true,
+            'data' => $messages
         ]);
 
     }
