@@ -105,6 +105,9 @@ Route::group([
 
 ], function ($router) {
 
+    // Get
+    Route::get('getJobApplicationsByOpportunityId/{id}','OpportunityApplications@getJobApplicationsByOpportunityId');
+    Route::get('getTrainingApplicationsByOpportunityId/{id}','OpportunityApplications@getTrainingApplicationsByOpportunityId');
     // Apply
     Route::post('applyForTraining', 'OpportunityApplications@applyForTraining');
     Route::post('applyForJob', 'OpportunityApplications@applyForJob');

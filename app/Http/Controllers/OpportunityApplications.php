@@ -133,4 +133,44 @@ class OpportunityApplications extends Controller
             'message' => 'Accepted Successfully'
         ]);
     }
+
+    public function getJobApplicationsByOpportunityId($id){
+
+        $jobOpportunity = JobOpportunity::findOrFail($id);
+
+        if($jobOpportunity->company_id != auth()->user()->company()->first()->id){
+            throw new UnauthorizedException('Action Unauthorized');
+        }
+
+        $applications = PersonJobApplication::where('job_opportunity_id','=',$id)
+            ->join('people','person_id','=','people.id')
+            ->join('users','people.user_id','=','users.id')
+            ->get(['person_job_applications.id as application_id','people.id as person_id',
+                'users.id as user_id','users.name','users.email','users.mobile','people.photo']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $applications
+        ]);
+    }
+
+    public function getTrainingApplicationsByOpportunityId($id){
+
+        $trainingOpportunity = TrainingOpportunity::findOrFail($id);
+
+        if($trainingOpportunity->company_id != auth()->user()->company()->first()->id){
+            throw new UnauthorizedException('Action Unauthorized');
+        }
+
+        $applications = PersonTrainingApplication::where('training_opportunity_id','=',$id)
+            ->join('people','person_id','=','people.id')
+            ->join('users','people.user_id','=','users.id')
+            ->get(['person_training_applications.id as application_id','people.id as person_id',
+                'users.id as user_id','users.name','users.email','users.mobile','people.photo']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $applications
+        ]);
+    }
 }
