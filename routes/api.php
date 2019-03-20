@@ -68,7 +68,7 @@ Route::group([
     Route::post('add', 'TrainingOpportunities@add');
     Route::get('getByCategory/{category_id}','TrainingOpportunities@getByCategory');
     Route::get('getByCompany/{company_id}','TrainingOpportunities@getByCompany');
-
+    Route::post('delete', 'TrainingOpportunities@delete');
 });
 
 Route::group([
@@ -80,6 +80,7 @@ Route::group([
     Route::post('add', 'JobOpportunities@add');
     Route::get('getByCategory/{category_id}', 'JobOpportunities@getByCategory');
     Route::get('getByCompany/{company_id}','JobOpportunities@getByCompany');
+    Route::post('delete', 'JobOpportunities@delete');
 });
 
 Route::group([

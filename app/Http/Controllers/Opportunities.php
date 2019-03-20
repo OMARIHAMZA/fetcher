@@ -42,4 +42,6 @@ abstract class Opportunities extends Controller
             'data'=> $data
         ]);
     }
+
+    abstract public function delete(Request $request);
 }

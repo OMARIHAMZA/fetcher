@@ -48,4 +48,24 @@ class JobOpportunities extends Opportunities
     }
 
 
+    public function delete(Request $request)
+    {
+        $this->validate($request,[
+            'job_opportunity_id' => 'required|integer'
+        ]);
+
+        $jobOpportunity = JobOpportunity::findOrFail($request->input('job_opportunity_id'));
+
+        if($jobOpportunity->company_id != auth()->user()->company()->first()->id){
+            throw new UnauthorizedException('Action Unauthorized');
+        }
+
+        $jobOpportunity->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Deleted Successfully'
+        ]);
+
+    }
 }

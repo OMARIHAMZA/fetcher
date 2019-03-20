@@ -47,4 +47,24 @@ class TrainingOpportunities extends Opportunities
             'message'=>"Training Opportunity Added Successfully!"
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        $this->validate($request,[
+            'training_opportunity_id' => 'required|integer'
+        ]);
+
+        $trainignOpportunity = TrainingOpportunity::findOrFail($request->input('training_opportunity_id'));
+
+        if($trainignOpportunity->company_id != auth()->user()->company()->first()->id){
+            throw new UnauthorizedException('Action Unauthorized');
+        }
+
+        $trainignOpportunity->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Deleted Successfully'
+        ]);
+    }
 }
