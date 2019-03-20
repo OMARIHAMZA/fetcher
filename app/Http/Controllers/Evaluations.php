@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 class Evaluations extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['getPersonEvaluations','getCompanyEvaluations']]);
+    }
+
     public function evaluateCompany(Request $request){
         $this->validate($request,[
             'person_id' => 'required|integer',
@@ -67,6 +73,23 @@ class Evaluations extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Rating added successfully'
+        ]);
+    }
+
+    public function getPersonEvaluations($id){
+        $evaluations = PersonEvaluation::where('person_id','=',$id)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $evaluations
+        ]);
+    }
+    public function getCompanyEvaluations($id){
+        $evaluations = CompanyEvaluation::where('company_id','=',$id)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $evaluations
         ]);
     }
 }

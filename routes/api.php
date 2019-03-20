@@ -127,6 +127,11 @@ Route::group([
     'prefix' => 'evaluations'
 
 ], function ($router) {
+
+    // Get
+    Route::get('getPersonEvaluations/{id}','Evaluations@getPersonEvaluations');
+    Route::get('getCompanyEvaluations/{id}','Evaluations@getCompanyEvaluations');
+
     Route::post('evaluateCompany', 'Evaluations@evaluateCompany');
     Route::post('evaluatePerson', 'Evaluations@evaluatePerson');
 });
