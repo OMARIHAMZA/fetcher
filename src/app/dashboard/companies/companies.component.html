@@ -1,0 +1,23 @@
+<div class="alert alert-warning" role="alert" *ngIf="message">
+  {{message}}
+</div>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Website</th>
+    <th scope="col">Mobile</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let company of companies;let i = index">
+    <th scope="row">{{company.name}}</th>
+    <td>{{company.official_email}}</td>
+    <td>{{company.website}}</td>
+    <td>{{company.mobile}}</td>
+    <td><button class="btn btn-danger text-light text-center" (click)="delete(company.id, i)">delete</button></td>
+  </tr>
+  </tbody>
+</table>

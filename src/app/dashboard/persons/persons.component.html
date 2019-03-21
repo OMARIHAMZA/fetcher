@@ -1,0 +1,23 @@
+<div class="alert alert-warning" role="alert" *ngIf="message">
+  {{message}}
+</div>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Address</th>
+    <th scope="col">Mobile</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let persons of people;let i = index">
+    <th scope="row">{{persons.name}}</th>
+    <td>{{persons.email}}</td>
+    <td>{{persons.address}}</td>
+    <td>{{persons.mobile}}</td>
+    <td><button class="btn btn-danger text-light text-center" (click)="delete(persons.id,i)">delete</button></td>
+  </tr>
+  </tbody>
+</table>
