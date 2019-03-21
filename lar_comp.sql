@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2019 at 04:39 PM
+-- Generation Time: Mar 21, 2019 at 08:10 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -115,7 +115,7 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `user_id`, `name`, `website`, `official_email`, `main_address`, `created_at`, `updated_at`) VALUES
-(2, 13, 'InMood', 'inmood.net', 'mail@inmood.com', 'Mazzeh , Western Villas - Tala Bridge St.', '2019-03-15 11:25:05', '2019-03-15 11:52:36');
+(2, 13, 'InMood', 'inmood.net', 'mail@inmood.com', 'Mazzeh , Western Villas - Tala Tower St.', '2019-03-15 11:25:05', '2019-03-15 11:52:36');
 
 -- --------------------------------------------------------
 
@@ -179,7 +179,8 @@ CREATE TABLE `employments` (
 --
 
 INSERT INTO `employments` (`id`, `company_id`, `person_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, '2019-03-19 11:34:58', '2019-03-19 11:34:58');
+(1, 2, 1, '2019-03-19 11:34:58', '2019-03-19 11:34:58'),
+(2, 2, 1, '2019-03-20 21:14:05', '2019-03-20 21:14:05');
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,6 @@ CREATE TABLE `job_opportunities` (
 --
 
 INSERT INTO `job_opportunities` (`id`, `company_id`, `duration`, `end_of_submission`, `start`, `requirements`, `number_of_employees`, `salary`, `place`, `days`, `created_at`, `updated_at`, `category_id`, `title`) VALUES
-(2, 2, 3, '2019-04-01', '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 8, '80000.00', 'Damascus, Syria', 'Sunday, Monday, Wednesday', '2019-03-16 11:32:10', '2019-03-16 11:32:10', 4, 'Webdev'),
 (3, 2, 3, '2019-04-01', '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 8, '80000.00', 'Damascus, Syria', 'Sunday, Monday, Wednesday', '2019-03-16 11:41:35', '2019-03-16 11:41:35', 4, 'Webdev'),
 (4, 2, 3, '2019-04-01', '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 8, '80000.00', 'Damascus, Syria', 'Sunday, Monday, Wednesday', '2019-03-16 11:43:38', '2019-03-16 11:43:38', 4, 'Webdev');
 
@@ -249,7 +249,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2019_03_19_122940_create_employments_table', 7),
 (19, '2019_03_19_123015_create_trainigns_table', 7),
 (20, '2019_03_19_134434_create_company_evaluations_table', 8),
-(21, '2019_03_19_134451_create_person_evaluations_table', 8);
+(21, '2019_03_19_134451_create_person_evaluations_table', 8),
+(22, '2019_03_20_222334_create_person_messages_table', 9);
 
 -- --------------------------------------------------------
 
@@ -331,6 +332,29 @@ INSERT INTO `person_job_applications` (`id`, `job_opportunity_id`, `person_id`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `person_messages`
+--
+
+CREATE TABLE `person_messages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `person_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(10) UNSIGNED NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `person_messages`
+--
+
+INSERT INTO `person_messages` (`id`, `person_id`, `company_id`, `message`, `created_at`, `updated_at`) VALUES
+(5, 1, 2, 'You Are Accepted With Our Opportunity', '2019-03-20 21:14:05', '2019-03-20 21:14:05'),
+(6, 1, 2, 'You Are Accepted With Our Opportunity', '2019-03-20 21:23:09', '2019-03-20 21:23:09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `person_training_applications`
 --
 
@@ -390,7 +414,8 @@ CREATE TABLE `trainings` (
 --
 
 INSERT INTO `trainings` (`id`, `company_id`, `person_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, '2019-03-19 11:30:49', '2019-03-19 11:30:49');
+(1, 2, 1, '2019-03-19 11:30:49', '2019-03-19 11:30:49'),
+(2, 2, 1, '2019-03-20 21:23:09', '2019-03-20 21:23:09');
 
 -- --------------------------------------------------------
 
@@ -419,7 +444,6 @@ CREATE TABLE `training_opportunities` (
 --
 
 INSERT INTO `training_opportunities` (`id`, `company_id`, `duration`, `start`, `requirements`, `paid`, `number_of_trainees`, `place`, `subject`, `created_at`, `updated_at`, `category_id`, `title`) VALUES
-(4, 2, 3, '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 1, 8, 'Damascus, Syria', 'Web Development', '2019-03-16 11:31:36', '2019-03-16 11:31:36', 4, 'Web Development'),
 (5, 2, 3, '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 1, 8, 'Damascus, Syria', 'Web Development', '2019-03-16 11:41:39', '2019-03-16 11:41:39', 4, 'Web Development'),
 (6, 2, 3, '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 1, 8, 'Damascus, Syria', 'Web Development', '2019-03-16 11:43:44', '2019-03-16 11:43:44', 4, 'Web Development'),
 (7, 2, 3, '2019-05-01', 'Some requirements Here\n- req1\n- req 2', 1, 8, 'Damascus, Syria', 'Web Development', '2019-03-16 11:49:11', '2019-03-16 11:49:11', 4, 'Web Development');
@@ -449,7 +473,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `password`, `type`, `company_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (13, 'inmood', 'mail@inmmod.com', '+963265874125', '$2y$10$F3tzf78NOJbl8aB6KdNh3OG/2DZHFvyB/u.nMf0bf1PJxvhM5kVx2', '2', NULL, NULL, '2019-03-15 11:25:05', '2019-03-15 11:25:05'),
-(16, 'Samer Alsaydali', 'samsaydali@gmail.com', '+963999888777', '$2y$10$cTBMfhR.M9GbJxXgb.7P1.wT2XTj2Xi4irxMtseLwyreXKDXyM30G', '3', NULL, NULL, '2019-03-18 09:53:22', '2019-03-18 09:53:22');
+(16, 'Samer Alsaydali', 'samsaydali@gmail.com', '+963999888777', '$2y$10$cTBMfhR.M9GbJxXgb.7P1.wT2XTj2Xi4irxMtseLwyreXKDXyM30G', '3', NULL, NULL, '2019-03-18 09:53:22', '2019-03-18 09:53:22'),
+(17, 'Admin', 'admin@admin.com', '+963874456221', '$2y$10$cTBMfhR.M9GbJxXgb.7P1.wT2XTj2Xi4irxMtseLwyreXKDXyM30G', '1', NULL, 'rg109Fi0Bpe5L0gvYj2pp2NIuNVwOgECuM4qQ4VSKHWkzbN9YaroObHxROTh', '2019-03-21 00:15:00', '2019-03-21 00:15:00'),
+(18, 'New Company', 'new@company.com', '+999888777333', '$2y$10$I1VZ/UKvnS6aFdX6E2Bc5ev6qko3E47x.lPBg1XbfN41vXOI/1cPa', '2', NULL, NULL, '2019-03-21 10:20:53', '2019-03-21 10:20:53');
 
 -- --------------------------------------------------------
 
@@ -473,7 +499,6 @@ CREATE TABLE `works` (
 --
 
 INSERT INTO `works` (`id`, `person_id`, `name`, `description`, `start`, `end`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Web Dev Cert', 'Web Dev Cert Description', '2019-02-03', '2019-02-04', '2019-03-18 11:13:46', '2019-03-18 11:13:46'),
 (2, 1, 'Web Dev Cert', 'Web Dev Cert Description', '2019-02-03', NULL, '2019-03-18 11:14:44', '2019-03-18 11:14:44');
 
 --
@@ -574,6 +599,14 @@ ALTER TABLE `person_job_applications`
   ADD KEY `person_job_applications_person_id_foreign` (`person_id`);
 
 --
+-- Indexes for table `person_messages`
+--
+ALTER TABLE `person_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `person_messages_company_id_foreign` (`company_id`),
+  ADD KEY `person_messages_person_id_foreign` (`person_id`);
+
+--
 -- Indexes for table `person_training_applications`
 --
 ALTER TABLE `person_training_applications`
@@ -646,7 +679,7 @@ ALTER TABLE `certificates`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `company_evaluations`
@@ -664,7 +697,7 @@ ALTER TABLE `company_photos`
 -- AUTO_INCREMENT for table `employments`
 --
 ALTER TABLE `employments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `job_opportunities`
@@ -676,13 +709,13 @@ ALTER TABLE `job_opportunities`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `people`
 --
 ALTER TABLE `people`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `person_evaluations`
@@ -695,6 +728,12 @@ ALTER TABLE `person_evaluations`
 --
 ALTER TABLE `person_job_applications`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `person_messages`
+--
+ALTER TABLE `person_messages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `person_training_applications`
@@ -712,7 +751,7 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `training_opportunities`
@@ -724,7 +763,7 @@ ALTER TABLE `training_opportunities`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `works`
@@ -800,6 +839,13 @@ ALTER TABLE `person_evaluations`
 ALTER TABLE `person_job_applications`
   ADD CONSTRAINT `person_job_applications_job_opportunity_id_foreign` FOREIGN KEY (`job_opportunity_id`) REFERENCES `job_opportunities` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `person_job_applications_person_id_foreign` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `person_messages`
+--
+ALTER TABLE `person_messages`
+  ADD CONSTRAINT `person_messages_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `person_messages_person_id_foreign` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `person_training_applications`
