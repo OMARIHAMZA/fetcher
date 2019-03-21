@@ -10,12 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    /*View::addExtention('html','php');
+    return View::make('index.html');*/
+    return view('index');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/companies/update/{id}', 'Companies@update')->name('update_company');
