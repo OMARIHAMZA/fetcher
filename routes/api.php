@@ -136,3 +136,22 @@ Route::group([
     Route::post('evaluateCompany', 'Evaluations@evaluateCompany');
     Route::post('evaluatePerson', 'Evaluations@evaluatePerson');
 });
+
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'admin'
+
+], function ($router) {
+
+    // Get
+    Route::get('companies','Admin@companies');
+    Route::get('people','Admin@people');
+
+
+    Route::post('addUser', 'Admin@addUser');
+    Route::post('deleteCompany', 'Admin@deleteCompany');
+    Route::post('deletePerson', 'Admin@deletePerson');
+
+});

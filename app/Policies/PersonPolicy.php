@@ -14,6 +14,11 @@ class PersonPolicy
         return $user->isPerson();
     }
 
+    public function isAdmin(User $user){
+        return $user->isAdmin();
+    }
+
+
     /**
      * Determine whether the user can view the person.
      *
@@ -60,5 +65,6 @@ class PersonPolicy
     public function delete(User $user, Person $person)
     {
         //
+        return $this->isAdmin() || $person->user_id === $user->id;
     }
 }

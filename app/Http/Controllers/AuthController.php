@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Person;
+use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Company;
@@ -17,6 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('cors');
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
@@ -25,10 +27,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
-
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['success'=> false ,'error' => 'Unauthorized'], 401);
         }

@@ -24,7 +24,15 @@ class CompanyPolicy
         return $user->id === $company->user_id;
     }
 
+    public function delete(User $user, Company $company){
+        return $this->isAdmin() || $company->user_id === $user->id;
+    }
+
     public function isCompany(User $user){
         return $user->isCompany();
+    }
+
+    public function isAdmin(User $user){
+        return $user->isAdmin();
     }
 }

@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:web');
     }
 
     /**
@@ -25,16 +25,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = [];
-        if($request->user()->isCompany()){
-            $company = $request->user()->company()->first();
-            $data['company_id'] = $company['id'];
-            $data['user_id'] = $company['user_id'];
-            $data['name'] = $company['name'];
-            $data['website'] = $company['website'];
-            $data['official_email'] = $company['official_email'];
-            $data['main_address'] = $company['main_address'];
-        }
-        return view('home',$data);
+
+        return view('home');
     }
 }
