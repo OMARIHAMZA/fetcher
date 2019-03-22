@@ -31,6 +31,8 @@ class People extends Controller
         $this->validate($request,[
            'photo' => 'required',
            'address' => 'required',
+           'id_photo' => 'required',
+           'cv' => 'required',
         ]);
 
         $person = Person::findOrFail($id);
@@ -39,8 +41,14 @@ class People extends Controller
 
         $path = $request->file('photo')->store('PeoplePhotos');
 
+        $id_photo = $request->file('id_photo')->store('PeopleIds');
+        $cv = $request->file('cv')->store('PeopleCvs');
+
+
         $person->photo = $path;
         $person->address = $request->input('address');
+        $person->id_photo = $id_photo;
+        $person->cv = $cv;
 
         $person->save();
 
