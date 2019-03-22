@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2019 at 08:10 PM
+-- Generation Time: Mar 22, 2019 at 01:10 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -103,6 +103,7 @@ CREATE TABLE `companies` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `commercial_record` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `website` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `official_email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `main_address` text COLLATE utf8mb4_unicode_ci,
@@ -114,8 +115,8 @@ CREATE TABLE `companies` (
 -- Dumping data for table `companies`
 --
 
-INSERT INTO `companies` (`id`, `user_id`, `name`, `website`, `official_email`, `main_address`, `created_at`, `updated_at`) VALUES
-(2, 13, 'InMood', 'inmood.net', 'mail@inmood.com', 'Mazzeh , Western Villas - Tala Tower St.', '2019-03-15 11:25:05', '2019-03-15 11:52:36');
+INSERT INTO `companies` (`id`, `user_id`, `name`, `commercial_record`, `website`, `official_email`, `main_address`, `created_at`, `updated_at`) VALUES
+(2, 13, 'InMood', 'CompanyCommercialRecords/JoZQv4J6SKgIHplOT84YcU36bEpcOBrKCuXKxVQe.png', 'inmood.net', 'mail@inmood.com', 'Mazzeh , Western Villas - Tala Bridge St.', '2019-03-15 11:25:05', '2019-03-22 10:08:08');
 
 -- --------------------------------------------------------
 
@@ -274,6 +275,8 @@ CREATE TABLE `people` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cv` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -283,8 +286,8 @@ CREATE TABLE `people` (
 -- Dumping data for table `people`
 --
 
-INSERT INTO `people` (`id`, `user_id`, `photo`, `address`, `created_at`, `updated_at`) VALUES
-(1, 16, 'PeoplePhotos/2ZcabwujN0lD0b7xds7nqHN3jtiShDuhCc4js8KM.jpeg', 'Damascus, SY, Elm Street', '2019-03-18 09:53:22', '2019-03-18 11:09:24');
+INSERT INTO `people` (`id`, `user_id`, `photo`, `id_photo`, `cv`, `address`, `created_at`, `updated_at`) VALUES
+(1, 16, 'PeoplePhotos/cid1dMULTSB823arB62UFCFH7PihOqNUXuSjo5JX.jpeg', 'PeopleIds/Xci549mVeDuXmDLxJHdFtz9BIT1NDFzyNBjy1Z4w.png', 'PeopleCvs/8t2ypA2OZZzNhTc9gDIuU0iMQwzAWh415Jx2gG8J.jpeg', 'Damascus, SY, Elm Street', '2019-03-18 09:53:22', '2019-03-22 10:03:05');
 
 -- --------------------------------------------------------
 
@@ -667,7 +670,7 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `certificates`
@@ -679,7 +682,7 @@ ALTER TABLE `certificates`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `company_evaluations`
@@ -715,7 +718,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `people`
 --
 ALTER TABLE `people`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `person_evaluations`
@@ -763,7 +766,7 @@ ALTER TABLE `training_opportunities`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `works`

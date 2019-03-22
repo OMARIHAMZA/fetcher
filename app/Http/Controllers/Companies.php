@@ -46,18 +46,21 @@ class Companies extends Controller
             'name' => 'required|string',
             'website' => 'required',
             'official_email'=>'required|email',
-            'main_address' => 'required|string'
+            'main_address' => 'required|string',
+            'commercial_record'=>'required'
         ]);
 
         $company = Company::find($id);
 
         $this->authorize('update',$company);
+        $path = $request->file('commercial_record')->store('CompanyCommercialRecords');
 
         $company->name = $request->input('name');
         $company->website = $request->input('website');
         $company->official_email = $request->input('official_email');
         $company->main_address = $request->input('main_address');
-
+        $company->commercial_record = $path;
+        
         $company->save();
 
         return response()->json([
