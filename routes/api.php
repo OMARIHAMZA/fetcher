@@ -50,6 +50,18 @@ Route::group([
 Route::group([
 
     'middleware' => 'api',
+    'prefix' => 'categories'
+
+], function ($router) {
+
+    Route::get('get', 'Categories@get');
+    Route::post('add', 'Categories@add');
+
+});
+
+Route::group([
+
+    'middleware' => 'api',
     'prefix' => 'projects'
 
 ], function ($router) {
