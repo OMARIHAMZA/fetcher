@@ -1,10 +1,10 @@
 package omari.hamza.fetcher.views.masters;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -75,6 +75,15 @@ public abstract class MasterActivity extends AppCompatActivity implements Callba
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+        }
     }
 
    /* @Override

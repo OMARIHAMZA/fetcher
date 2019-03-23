@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activities.MainActivity">
+    tools:context=".views.activities.UserHomeActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mToolbar"
@@ -32,6 +32,7 @@
 
 
             <android.support.v7.widget.CardView
+                android:id="@+id/profile_cardView"
                 android:layout_width="36dp"
                 app:cardElevation="0dp"
                 android:layout_height="36dp"

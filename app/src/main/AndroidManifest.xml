@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="omari.hamza.fetcher">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,19 +15,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.activities.SignupActivity"></activity>
+        <activity android:name=".views.activities.CompanyHomeActivity"></activity>
+        <activity android:name=".views.activities.ProfileActivity" />
+        <activity
+            android:name=".views.activities.SignupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/RegistrationTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".views.activities.LoginActivity"
-            android:theme="@style/RegistrationTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/RegistrationTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.OfferDetailsActivity" />
-        <activity android:name=".views.activities.OffersActivity" />
-        <activity android:name=".views.activities.MainActivity"></activity>
+        <activity
+            android:name=".views.activities.OfferDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.activities.OffersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.activities.UserHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

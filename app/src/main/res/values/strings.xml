@@ -18,4 +18,17 @@
     <string name="sign_up">Sign up.</string>
     <string name="username">Username</string>
     <string name="mobile">Mobile</string>
+    <string name="sign_up_no_dot">Sign up</string>
+    <string name="logout">Logout</string>
+    <string name="job_offer">Job Offer</string>
+    <string name="training">Training</string>
+    <string name="SUCCESS">SUCCESS</string>
+    <string name="contact">Contact</string>
+    <string name="phone">Phone</string>
+    <string name="information">Information</string>
+    <string name="curriculum_vitae">Curriculum vitae</string>
+    <string name="click_here_to_display"><u>CLICK HERE TO DISPLAY</u></string>
+    <string name="id_image">ID IMAGE</string>
+    <string name="click_here_to_upload"><u>CLICK HERE TO UPLOAD</u></string>
+    <string name="company_account">Company Account</string>
 </resources>

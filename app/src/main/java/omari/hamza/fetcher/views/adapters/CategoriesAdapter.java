@@ -7,16 +7,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.ahmadrosid.svgloader.SvgLoader;
+
+import java.util.ArrayList;
 
 import omari.hamza.fetcher.R;
+import omari.hamza.fetcher.core.models.Category;
 import omari.hamza.fetcher.views.activities.OffersActivity;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder> {
 
     private Activity mActivity;
+    private ArrayList<Category> categories;
 
-    public CategoriesAdapter(Activity mActivity) {
+    public CategoriesAdapter(Activity mActivity, ArrayList<Category> categories) {
         this.mActivity = mActivity;
+        this.categories = categories;
     }
 
     @NonNull
@@ -28,26 +37,34 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               mActivity.startActivity(new Intent(mActivity, OffersActivity.class));
-            }
+        myViewHolder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(mActivity, OffersActivity.class);
+            intent.putExtra("category", categories.get(i));
+            mActivity.startActivity(intent);
         });
+
+        myViewHolder.categoryTitleTextView.setText(categories.get(i).getName());
+        SvgLoader.pluck()
+                .with(mActivity)
+                .load(categories.get(i).getImageUrl(), myViewHolder.categoryImageView);
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return categories.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         View itemView;
+        TextView categoryTitleTextView;
+        ImageView categoryImageView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
+            categoryTitleTextView = itemView.findViewById(R.id.category_title_textview);
+            categoryImageView = itemView.findViewById(R.id.category_imageView);
         }
     }
 }
