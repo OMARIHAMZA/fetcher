@@ -29,33 +29,34 @@ class People extends Controller
 
     public function edit($id,Request $request){
         $this->validate($request,[
-           'photo' => 'required',
            'address' => 'required',
-           'id_photo' => 'required',
-           'cv' => 'required',
         ]);
 
         $person = Person::findOrFail($id);
 
         $this->authorize('update',$person);
 
-        $path = $request->file('photo')->store('PeoplePhotos');
 
-        $id_photo = $request->file('id_photo')->store('PeopleIds');
-        $cv = $request->file('cv')->store('PeopleCvs');
+        if($request->hasFile('photo')){
+            $path = $request->file('photo')->store('PeoplePhotos');
+            $person->photo = $path;
+        }
+        if($request->hasFile('id_photo')){
+            $id_photo = $request->file('id_photo')->store('PeopleIds');
+            $person->id_photo = $id_photo;
+        }
+        if($request->hasFile('cv')){
+            $cv = $request->file('cv')->store('PeopleCvs');
+            $person->cv = $cv;
+        }
 
-
-        $person->photo = $path;
         $person->address = $request->input('address');
-        $person->id_photo = $id_photo;
-        $person->cv = $cv;
 
         $person->save();
 
         return response()->json([
             'success'=>true,
-            'message'=>"Person Edited Successfully!",
-            'photo'=>$path
+            'message'=>"Person Edited Successfully!"
         ]);
     }
 

@@ -13,7 +13,7 @@ class TrainingOpportunity extends Opportunity
         return $category->trainingOpportunities()->join('companies', 'company_id', '=', 'companies.id')->get(
             array_merge(['training_opportunities.id as training_opportunity_id',
                 'companies.id as company_id','companies.name as company_name'], $this->fillable)
-    );
+        );
     }
 
     public function getByCompany(Company $company)
