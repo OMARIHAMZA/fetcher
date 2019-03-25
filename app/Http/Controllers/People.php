@@ -30,6 +30,7 @@ class People extends Controller
     public function edit($id,Request $request){
         $this->validate($request,[
            'address' => 'required',
+            'field_of_work' => 'required'
         ]);
 
         $person = Person::findOrFail($id);
@@ -51,6 +52,7 @@ class People extends Controller
         }
 
         $person->address = $request->input('address');
+        $person->field_of_work = $request->input('field_of_work');
 
         $person->save();
 
