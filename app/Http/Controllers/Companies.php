@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Branch;
 use App\Company;
 use App\CompanyPhoto;
+use App\Employment;
+use App\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -166,6 +168,35 @@ class Companies extends Controller
         return response()->json([
             'success'=>true,
             'message'=>"Project deleted Successfully!"
+        ]);
+    }
+
+    public function getTrainees($company_id){
+        $company = Company::findOrFail($company_id);
+
+        $this->authorize('update',$company);
+
+        $training = new Training();
+
+        $data = $training->getByCompany($company);
+
+        return response()->json([
+            'success'=>true,
+            'data' =>$data
+        ]);
+    }
+    public function getEmployees($company_id){
+        $company = Company::findOrFail($company_id);
+
+        $this->authorize('update',$company);
+
+        $employment = new Employment();
+
+        $data = $employment->getByCompany($company);
+
+        return response()->json([
+            'success'=>true,
+            'data' =>$data
         ]);
     }
 

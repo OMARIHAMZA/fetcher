@@ -37,6 +37,9 @@ Route::group([
 
     Route::get('currentCompany', 'Companies@currentCompany');
     Route::get('info/{id}', 'Companies@info');
+    Route::get('getTrainees/{company_id}', 'Companies@getTrainees');
+    Route::get('getEmployees/{company_id}', 'Companies@getEmployees');
+
     Route::post('update/{id}', 'Companies@update');
     Route::post('addBranch', 'Companies@addBranch');
     Route::post('addCompanyPhoto', 'Companies@addCompanyPhoto');

@@ -20,4 +20,10 @@ class Employment extends Model
         $this->company()->associate($company);
         $this->save();
     }
+    public function getByCompany(Company $company){
+        return $this->join('people','people.id','=','person_id')
+            ->where('company_id','=',$company->id)
+            ->get(['employments.id as employment_id','company_id','person_id',
+                'photo','id_photo','cv','address','field_of_work']);
+    }
 }
