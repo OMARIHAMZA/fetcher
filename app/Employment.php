@@ -22,8 +22,10 @@ class Employment extends Model
     }
     public function getByCompany(Company $company){
         return $this->join('people','people.id','=','person_id')
-            ->where('company_id','=',$company->id)
-            ->get(['employments.id as employment_id','company_id','person_id',
+            ->join('users','users.id','=','people.user_id')
+            ->where('employments.company_id','=',$company->id)
+            ->get(['employments.id as employment_id','employments.company_id','person_id',
+                'users.name','users.mobile','users.email',
                 'photo','id_photo','cv','address','field_of_work']);
     }
 }

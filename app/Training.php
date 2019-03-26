@@ -24,8 +24,10 @@ class Training extends Model
 
     public function getByCompany(Company $company){
         return $this->join('people','people.id','=','person_id')
-            ->where('company_id','=',$company->id)
-            ->get(['trainings.id as training_id','company_id','person_id',
+            ->join('users','users.id','=','people.user_id')
+            ->where('trainings.company_id','=',$company->id)
+            ->get(['trainings.id as training_id','trainings.company_id','person_id',
+                'users.name','users.mobile','users.email',
                 'photo','id_photo','cv','address','field_of_work']);
     }
 
