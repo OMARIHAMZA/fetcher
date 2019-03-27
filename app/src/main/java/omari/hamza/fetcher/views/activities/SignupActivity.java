@@ -15,6 +15,7 @@ import omari.hamza.fetcher.core.controllers.UserController;
 import omari.hamza.fetcher.core.models.response.MessagesResponse;
 import omari.hamza.fetcher.core.utils.LoadingDialog;
 import omari.hamza.fetcher.core.utils.UserUtils;
+import omari.hamza.fetcher.views.activities.users.UserHomeActivity;
 import omari.hamza.fetcher.views.masters.MasterActivity;
 import retrofit2.Call;
 import retrofit2.Callback;

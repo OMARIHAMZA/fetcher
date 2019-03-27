@@ -1,34 +1,52 @@
 <resources>
     <string name="app_name">Fetcher</string>
-    <string name="categories">Categories</string>
-    <string name="required_field">This field is required</string>
-    <string name="home">HOME</string>
-    <string name="inbox">INBOX</string>
+    <string name="categories" translatable="false">Categories</string>
+    <string name="required_field" translatable="false">This field is required</string>
+    <string name="home" translatable="false">HOME</string>
+    <string name="inbox" translatable="false">INBOX</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="job_description">Job Description</string>
-    <string name="apply">Apply</string>
-    <string name="login">Login.</string>
-    <string name="welcome_back_nsign_in_to_continue">Welcome Back,\nSign in to continue</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login_no_dot">Login</string>
-    <string name="new_user_sign_up">New User? <b>Sign Up</b></string>
-    <string name="sign_up">Sign up.</string>
-    <string name="username">Username</string>
-    <string name="mobile">Mobile</string>
-    <string name="sign_up_no_dot">Sign up</string>
-    <string name="logout">Logout</string>
-    <string name="job_offer">Job Offer</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="job_description" translatable="false">Job Description</string>
+    <string name="apply" translatable="false">Apply</string>
+    <string name="login" translatable="false">Login.</string>
+    <string name="welcome_back_nsign_in_to_continue" translatable="false">Welcome Back,\nSign in to continue</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="login_no_dot" translatable="false">Login</string>
+    <string name="new_user_sign_up" translatable="false">New User? <b>Sign Up</b></string>
+    <string name="sign_up" translatable="false">Sign up.</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="mobile" translatable="false">Mobile</string>
+    <string name="sign_up_no_dot" translatable="false">Sign up</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="job_offer" translatable="false">Job Offer</string>
     <string name="training">Training</string>
-    <string name="SUCCESS">SUCCESS</string>
-    <string name="contact">Contact</string>
-    <string name="phone">Phone</string>
-    <string name="information">Information</string>
-    <string name="curriculum_vitae">Curriculum vitae</string>
-    <string name="click_here_to_display"><u>CLICK HERE TO DISPLAY</u></string>
-    <string name="id_image">ID IMAGE</string>
-    <string name="click_here_to_upload"><u>CLICK HERE TO UPLOAD</u></string>
-    <string name="company_account">Company Account</string>
+    <string name="SUCCESS" translatable="false">SUCCESS</string>
+    <string name="contact" translatable="false">Contact</string>
+    <string name="phone" translatable="false">Phone</string>
+    <string name="information" translatable="false">Information</string>
+    <string name="curriculum_vitae" translatable="false">Curriculum vitae</string>
+    <string name="click_here_to_display" translatable="false"><u>CLICK HERE TO DISPLAY</u></string>
+    <string name="id_image" translatable="false">ID IMAGE</string>
+    <string name="click_here_to_upload" translatable="false"><u>CLICK HERE TO UPLOAD</u></string>
+    <string name="company_account" translatable="false">Company Account</string>
+    <string name="applications" translatable="false">APPLICATIONS</string>
+    <string name="my_offers" translatable="false">MY OFFERS</string>
+    <string name="subject" translatable="false">Subject</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="location" translatable="false">Location</string>
+    <string name="requirements" translatable="false">Requirements</string>
+    <string name="paid" translatable="false">Paid</string>
+    <string name="salary" translatable="false">Salary</string>
+    <string name="days">Days</string>
+    <string name="create">Create</string>
+    <string name="category">Category</string>
+    <string name="create_offer">Create Offer</string>
+    <string name="prof">Profile</string>
+    <string name="refresh">Refresh</string>
+    <string name="view_applications">View Applications</string>
+    <string name="upload_commercial_record"><u>UPLOAD COMMERCIAL RECORD</u></string>
+    <string name="staff">Staff</string>
+    <string name="rate">Rate</string>
 </resources>

@@ -16,6 +16,8 @@ import omari.hamza.fetcher.core.models.response.MessagesResponse;
 import omari.hamza.fetcher.core.models.response.UserInfoResponse;
 import omari.hamza.fetcher.core.utils.LoadingDialog;
 import omari.hamza.fetcher.core.utils.UserUtils;
+import omari.hamza.fetcher.views.activities.companies.CompanyHomeActivity;
+import omari.hamza.fetcher.views.activities.users.UserHomeActivity;
 import omari.hamza.fetcher.views.masters.MasterActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,8 +35,13 @@ public class LoginActivity extends MasterActivity {
         setContentView(R.layout.activity_login);
         super.onCreate(savedInstanceState);
         if (UserUtils.isUserLoggedIn(getApplicationContext())){
-            startActivity(new Intent(getApplicationContext(), UserHomeActivity.class));
-            finish();
+            if (UserUtils.getLoggedUser(getApplicationContext()).getType().equalsIgnoreCase("2")){
+                startActivity(new Intent(getApplicationContext(), CompanyHomeActivity.class));
+                finish();
+            }else{
+                startActivity(new Intent(getApplicationContext(), UserHomeActivity.class));
+                finish();
+            }
         }
     }
 
@@ -139,6 +146,9 @@ public class LoginActivity extends MasterActivity {
                 if (response.isSuccessful()){
                     User loggedUser = UserUtils.getLoggedUser(getApplicationContext());
                     loggedUser.setId(response.body().getUser().getId());
+                    loggedUser.setEmail(response.body().getUser().getEmail());
+                    loggedUser.setCompanyAddress(response.body().getUser().getCompanyAddress());
+                    loggedUser.setCompanyWebsite(response.body().getUser().getCompanyWebsite());
                     UserUtils.loginUser(getApplicationContext(), loggedUser);
                     startActivity(new Intent(getApplicationContext(), CompanyHomeActivity.class));
                     finish();

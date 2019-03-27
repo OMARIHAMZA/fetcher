@@ -14,9 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.activities.CompanyHomeActivity"></activity>
-        <activity android:name=".views.activities.ProfileActivity" />
+        <activity android:name=".views.activities.companies.StaffActivity"></activity>
+        <activity
+            android:name=".views.activities.companies.CompanyProfileActivity"
+            android:theme="@style/RegistrationTheme" />
+        <activity android:name=".views.activities.companies.OfferApplicationsActivity" />
+        <activity
+            android:name=".views.activities.companies.CreateOfferActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/RegistrationTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".views.activities.companies.CompanyHomeActivity" />
+        <activity android:name=".views.activities.users.UserProfileActivity" />
         <activity
             android:name=".views.activities.SignupActivity"
             android:screenOrientation="portrait"
@@ -40,7 +51,7 @@
             android:name=".views.activities.OffersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activities.UserHomeActivity"
+            android:name=".views.activities.users.UserHomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

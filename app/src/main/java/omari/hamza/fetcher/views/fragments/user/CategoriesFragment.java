@@ -1,4 +1,4 @@
-package omari.hamza.fetcher.views.fragments;
+package omari.hamza.fetcher.views.fragments.user;
 
 
 import android.os.Bundle;

@@ -52,7 +52,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.MyViewHolder
             super(itemView);
             this.itemView = itemView;
             this.title = itemView.findViewById(R.id.title_textView);
-            this.website = itemView.findViewById(R.id.website_textView);
+            this.website = itemView.findViewById(R.id.address_textView);
             this.body = itemView.findViewById(R.id.message_textView);
         }
     }

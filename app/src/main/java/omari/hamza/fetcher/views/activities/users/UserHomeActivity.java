@@ -1,8 +1,7 @@
-package omari.hamza.fetcher.views.activities;
+package omari.hamza.fetcher.views.activities.users;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.Menu;
@@ -13,8 +12,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import omari.hamza.fetcher.R;
 import omari.hamza.fetcher.core.utils.UserUtils;
-import omari.hamza.fetcher.views.fragments.CategoriesFragment;
-import omari.hamza.fetcher.views.fragments.InboxFragment;
+import omari.hamza.fetcher.views.activities.LoginActivity;
+import omari.hamza.fetcher.views.fragments.user.CategoriesFragment;
+import omari.hamza.fetcher.views.fragments.user.InboxFragment;
 import omari.hamza.fetcher.views.masters.MasterActivity;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -67,7 +67,7 @@ public class UserHomeActivity extends MasterActivity {
 
     @Override
     protected void assignActions() {
-        profileCardView.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
+        profileCardView.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), UserProfileActivity.class)));
     }
 
     @Override

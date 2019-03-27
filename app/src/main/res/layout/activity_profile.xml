@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".views.activities.ProfileActivity">
+    tools:context=".views.activities.users.UserProfileActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

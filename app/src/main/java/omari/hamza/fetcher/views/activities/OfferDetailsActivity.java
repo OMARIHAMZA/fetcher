@@ -1,18 +1,24 @@
 package omari.hamza.fetcher.views.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.nio.file.Path;
 
 import omari.hamza.fetcher.R;
 import omari.hamza.fetcher.core.controllers.UserController;
 import omari.hamza.fetcher.core.models.response.MessagesResponse;
 import omari.hamza.fetcher.core.models.Offer;
 import omari.hamza.fetcher.core.utils.LoadingDialog;
+import omari.hamza.fetcher.core.utils.UserUtils;
+import omari.hamza.fetcher.views.activities.companies.OfferApplicationsActivity;
 import omari.hamza.fetcher.views.masters.MasterActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +36,14 @@ public class OfferDetailsActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_offer_details);
         super.onCreate(savedInstanceState);
+        if (UserUtils.getLoggedUser(getApplicationContext()).getType().equalsIgnoreCase("2")){
+            applyButton.setText(getString(R.string.view_applications));
+            applyButton.setOnClickListener(v -> {
+                Intent mIntent = new Intent(getApplicationContext(), OfferApplicationsActivity.class);
+                mIntent.putExtra("offer", offer);
+                startActivity(mIntent);
+            });
+        }
     }
 
     @Override

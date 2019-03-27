@@ -2,7 +2,9 @@ package omari.hamza.fetcher.core.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     @SerializedName("id")
     private int id;
@@ -34,13 +36,18 @@ public class User {
     @SerializedName("main_address")
     private String companyAddress;
 
-
-    public User(int id, String username, String email, String mobile, String type) {
+    public User(int id, String username, String email, String mobile, String type, String companyWebsite, String companyEmail, String companyAddress) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.mobile = mobile;
         this.type = type;
+        this.companyWebsite = companyWebsite;
+        this.companyEmail = companyEmail;
+        this.companyAddress = companyAddress;
+    }
+
+    public User() {
     }
 
     public String getCompanyWebsite() {

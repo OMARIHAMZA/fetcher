@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/website_textView"
+                android:id="@+id/address_textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -47,9 +47,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/website_textView"
-                app:layout_constraintStart_toStartOf="@+id/website_textView"
-                app:layout_constraintTop_toBottomOf="@+id/website_textView" />
+                app:layout_constraintEnd_toEndOf="@+id/address_textView"
+                app:layout_constraintStart_toStartOf="@+id/address_textView"
+                app:layout_constraintTop_toBottomOf="@+id/address_textView" />
         </android.support.constraint.ConstraintLayout>
 
 
