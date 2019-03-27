@@ -28,4 +28,14 @@ class Employment extends Model
                 'users.name','users.mobile','users.email',
                 'photo','id_photo','cv','address','field_of_work']);
     }
+
+    public function getByPerson(Person $person){
+        return $this->join('companies','companies.id','=','company_id')
+            ->join('users','users.id','=','companies.user_id')
+            ->where('employments.person_id','=',$person->id)
+            ->get(['employments.id as employment_id','employments.person_id','employments.company_id',
+                'companies.name','users.mobile','companies.website','companies.official_email',
+                'companies.main_address'
+            ]);
+    }
 }

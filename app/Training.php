@@ -31,4 +31,14 @@ class Training extends Model
                 'photo','id_photo','cv','address','field_of_work']);
     }
 
+    public function getByPerson(Person $person){
+        return $this->join('companies','companies.id','=','company_id')
+            ->join('users','users.id','=','companies.user_id')
+            ->where('trainings.person_id','=',$person->id)
+            ->get(['trainings.id as training_id','trainings.person_id','trainings.company_id',
+                'companies.name','users.mobile','companies.website','companies.official_email',
+                'companies.main_address'
+            ]);
+    }
+
 }

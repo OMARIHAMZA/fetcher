@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Certificate;
+use App\Employment;
 use App\Person;
 use App\PersonMessage;
+use App\Training;
 use App\Work;
 use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
@@ -173,6 +175,36 @@ class People extends Controller
             'data' => $messages
         ]);
 
+    }
+
+    public function getTrainers($person_id){
+        $person = Person::findOrFail($person_id);
+
+        $this->authorize('update',$person);
+
+        $training = new Training();
+
+        $data = $training->getByPerson($person);
+
+        return response()->json([
+            'success'=>true,
+            'data' =>$data
+        ]);
+    }
+
+    public function getEmployers($person_id){
+        $person = Person::findOrFail($person_id);
+
+        $this->authorize('update',$person);
+
+        $employment = new Employment();
+
+        $data = $employment->getByPerson($person);
+
+        return response()->json([
+            'success'=>true,
+            'data' =>$data
+        ]);
     }
 
     public function info($id){

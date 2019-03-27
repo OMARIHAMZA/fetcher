@@ -112,6 +112,9 @@ Route::group([
     Route::post('addWork', 'People@addWork');
     Route::post('deleteCertificate', 'People@deleteCertificate');
     Route::post('deleteWork', 'People@deleteWork');
+
+    Route::get('getTrainers/{person_id}', 'People@getTrainers');
+    Route::get('getEmployers/{person_id}', 'People@getEmployers');
 });
 
 Route::group([
