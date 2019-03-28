@@ -162,13 +162,14 @@ class People extends Controller
                     'person_messages.message','companies.name','official_email','website','main_address']
             );
 
-        foreach ($messages as $message){
+        // Delete From DB
+        /*foreach ($messages as $message){
             $message->delete();
 
             $fordel = PersonMessage::find($message->message_id);
 
             $fordel->delete();
-        }
+        }*/
 
         return response()->json([
             'success'=>true,
