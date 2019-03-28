@@ -13,17 +13,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import omari.hamza.fetcher.R;
-import omari.hamza.fetcher.core.models.Person;
+import omari.hamza.fetcher.core.controllers.UserController;
+import omari.hamza.fetcher.core.models.Company;
+import omari.hamza.fetcher.core.utils.LoadingDialog;
 import omari.hamza.fetcher.core.utils.RatingDialog;
 
-public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.MyViewHolder> {
+public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyViewHolder> {
 
     private Activity mActivity;
-    private ArrayList<Person> staff;
+    private ArrayList<Company> companies;
+    private LoadingDialog mLoadingDialog;
 
-    public StaffAdapter(Activity mActivity, ArrayList<Person> staff) {
+    public CompaniesAdapter(Activity mActivity, ArrayList<Company> companies) {
         this.mActivity = mActivity;
-        this.staff = staff;
+        this.companies = companies;
+        this.mLoadingDialog = new LoadingDialog(mActivity);
     }
 
     @NonNull
@@ -35,15 +39,15 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        Person currentPerson = staff.get(i);
-        myViewHolder.nameTextView.setText(currentPerson.getName());
-        myViewHolder.typeTextView.setText(currentPerson.isTrainee() ? "Trainee" : "Employee");
-        myViewHolder.rateButton.setOnClickListener(v -> new RatingDialog(mActivity, currentPerson, null).show());
+        myViewHolder.nameTextView.setText(companies.get(i).getName());
+        myViewHolder.typeTextView.setText(companies.get(i).getEmail());
+        myViewHolder.rateButton.setOnClickListener(v -> new RatingDialog(mActivity, null, companies.get(i)).show());
     }
+
 
     @Override
     public int getItemCount() {
-        return staff.size();
+        return companies.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -67,5 +71,4 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.MyViewHolder
             this.rateButton.setVisibility(View.VISIBLE);
         }
     }
-
 }

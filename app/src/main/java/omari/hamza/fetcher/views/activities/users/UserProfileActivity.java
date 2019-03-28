@@ -2,10 +2,12 @@ package omari.hamza.fetcher.views.activities.users;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,14 +15,15 @@ import android.widget.Toast;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.nio.file.Path;
-
 import omari.hamza.fetcher.R;
 import omari.hamza.fetcher.core.controllers.UserController;
+import omari.hamza.fetcher.core.models.Rating;
 import omari.hamza.fetcher.core.models.User;
+import omari.hamza.fetcher.core.models.response.RatingResponse;
 import omari.hamza.fetcher.core.models.response.UserInfoResponse;
 import omari.hamza.fetcher.core.utils.ImageDialog;
 import omari.hamza.fetcher.core.utils.LoadingDialog;
+import omari.hamza.fetcher.core.utils.UserInfoDialog;
 import omari.hamza.fetcher.core.utils.UserUtils;
 import omari.hamza.fetcher.views.activities.LoginActivity;
 import omari.hamza.fetcher.views.masters.MasterActivity;
@@ -35,6 +38,7 @@ public class UserProfileActivity extends MasterActivity {
     private TextView uploadCVTextView, uploadIDTextView;
     private TextView logoutTextView;
     private LoadingDialog mLoadingDialog;
+
     @Nullable
     private User user;
 
@@ -44,6 +48,30 @@ public class UserProfileActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_profile);
         super.onCreate(savedInstanceState);
+        getUserRating();
+    }
+
+    private void getUserRating() {
+        UserController.getUserRating(getApplicationContext(), new Callback<RatingResponse>() {
+            @Override
+            public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getRatings() == null || response.body().getRatings().isEmpty())
+                        return;
+                    int avg = 0;
+                    for (Rating rating : response.body().getRatings()) {
+                        avg += rating.getRating();
+                    }
+                    avg /= response.body().getRatings().size();
+                    usernameTextView.setText(usernameTextView.getText().toString() + " (" + avg + "/5)");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RatingResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -82,9 +110,6 @@ public class UserProfileActivity extends MasterActivity {
                         .start(UserProfileActivity.this);
             });
         } else {
-            fieldTextView.setCompoundDrawablesRelative(null, null, null, null);
-            fieldTextView.setPadding(0, 0, 0, 0);
-
             uploadCVTextView.setText("CLICK HERE TO VIEW CV");
             uploadCVTextView.setOnClickListener(v -> new ImageDialog(this, user.getCv()).show());
 
@@ -108,11 +133,13 @@ public class UserProfileActivity extends MasterActivity {
             usernameTextView.setText(user.getUsername());
             emailTextView.setText(user.getEmail());
             phoneTextView.setText(user.getMobile());
+            fieldTextView.setText(user.getWorkField());
         } else {
             User user = UserUtils.getLoggedUser(getApplicationContext());
             usernameTextView.setText(user.getUsername());
             emailTextView.setText(user.getEmail());
             phoneTextView.setText(user.getMobile());
+            fieldTextView.setText(user.getWorkField());
         }
     }
 
@@ -185,5 +212,19 @@ public class UserProfileActivity extends MasterActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user_profile_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.edit_profile_item){
+           new UserInfoDialog(this).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -17,6 +17,7 @@ import omari.hamza.fetcher.core.models.response.MessageResponse;
 import omari.hamza.fetcher.core.models.response.OfferApplicationsResponse;
 import omari.hamza.fetcher.core.models.response.OffersResponse;
 import omari.hamza.fetcher.core.models.response.PersonInfoResponse;
+import omari.hamza.fetcher.core.models.response.RatingResponse;
 import omari.hamza.fetcher.core.models.response.StaffResponse;
 import omari.hamza.fetcher.core.models.response.UserInfoResponse;
 import omari.hamza.fetcher.core.utils.RetrofitClientInstance;
@@ -206,6 +207,13 @@ public class CompanyController {
         Call<MessageResponse> call = companyServices.ratePerson(UserUtils.getUserToken(context), personId, companyId, rating);
         call.enqueue(callback);
     }
+
+    public static void getCompanyRating(@NonNull Context context, Callback<RatingResponse> callback){
+        CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
+        Call<RatingResponse> call = companyServices.getCompanyRatings(UserUtils.getLoggedUser(context).getId());
+        call.enqueue(callback);
+    }
+
 
     @NonNull
     private static MultipartBody.Part prepareFilePart(Context context, String partName, Uri fileUri) {

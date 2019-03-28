@@ -16,8 +16,10 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import omari.hamza.fetcher.R;
 import omari.hamza.fetcher.core.controllers.CompanyController;
+import omari.hamza.fetcher.core.models.Rating;
 import omari.hamza.fetcher.core.models.User;
 import omari.hamza.fetcher.core.models.response.MessageResponse;
+import omari.hamza.fetcher.core.models.response.RatingResponse;
 import omari.hamza.fetcher.core.utils.CompanyInfoDialog;
 import omari.hamza.fetcher.core.utils.LoadingDialog;
 import omari.hamza.fetcher.core.utils.UserUtils;
@@ -36,6 +38,29 @@ public class CompanyProfileActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_company_profile);
         super.onCreate(savedInstanceState);
+        getCompanyRating();
+    }
+
+    private void getCompanyRating() {
+        CompanyController.getCompanyRating(getApplicationContext(), new Callback<RatingResponse>() {
+            @Override
+            public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getRatings() == null || response.body().getRatings().isEmpty()) return;
+                    int avg = 0;
+                    for (Rating rating: response.body().getRatings()){
+                        avg += rating.getRating();
+                    }
+                    avg /= response.body().getRatings().size();
+                    nameTextView.setText(nameTextView.getText().toString() + " (" + avg + "/5)");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RatingResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

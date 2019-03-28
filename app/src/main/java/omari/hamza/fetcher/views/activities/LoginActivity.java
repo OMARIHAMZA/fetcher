@@ -22,6 +22,7 @@ import omari.hamza.fetcher.views.masters.MasterActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.POST;
 
 public class LoginActivity extends MasterActivity {
 
@@ -34,14 +35,34 @@ public class LoginActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
         super.onCreate(savedInstanceState);
-        if (UserUtils.isUserLoggedIn(getApplicationContext())){
-            if (UserUtils.getLoggedUser(getApplicationContext()).getType().equalsIgnoreCase("2")){
-                startActivity(new Intent(getApplicationContext(), CompanyHomeActivity.class));
-                finish();
-            }else{
-                startActivity(new Intent(getApplicationContext(), UserHomeActivity.class));
-                finish();
-            }
+        if (UserUtils.isUserLoggedIn(getApplicationContext())) {
+            mLoadingDialog.show();
+            UserController.updateToken(getApplicationContext(), new Callback<MessagesResponse>() {
+                @Override
+                public void onResponse(Call<MessagesResponse> call, Response<MessagesResponse> response) {
+                    mLoadingDialog.dismiss();
+                    if (response.isSuccessful()) {
+                        UserUtils.saveUserToken(getApplicationContext(), response.body().getToken());
+                    }
+                    launchHome();
+                }
+
+                @Override
+                public void onFailure(Call<MessagesResponse> call, Throwable t) {
+                    mLoadingDialog.dismiss();
+                    launchHome();
+                }
+            });
+        }
+    }
+
+    private void launchHome() {
+        if (UserUtils.getLoggedUser(getApplicationContext()).getType().equalsIgnoreCase("2")) {
+            startActivity(new Intent(getApplicationContext(), CompanyHomeActivity.class));
+            finish();
+        } else {
+            startActivity(new Intent(getApplicationContext(), UserHomeActivity.class));
+            finish();
         }
     }
 
@@ -58,7 +79,7 @@ public class LoginActivity extends MasterActivity {
     protected void assignActions() {
         loginButton.setOnClickListener(v -> {
 
-            if (checkFields(emailEditText, passwordEditText)){
+            if (checkFields(emailEditText, passwordEditText)) {
                 mLoadingDialog.show();
                 UserController.loginUser(emailEditText.getText().toString(),
                         passwordEditText.getText().toString(),
@@ -77,19 +98,19 @@ public class LoginActivity extends MasterActivity {
 
     @Override
     protected void onSuccess(@NonNull Call call, @NonNull Response response) {
-        if (response.isSuccessful()){
+        if (response.isSuccessful()) {
             UserUtils.saveUserToken(getApplicationContext(), ((MessagesResponse) response.body()).getToken());
             UserController.getUserInfo(getApplicationContext(), new Callback<MessagesResponse>() {
                 @Override
                 public void onResponse(Call<MessagesResponse> call, Response<MessagesResponse> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         UserUtils.loginUser(getApplicationContext(), response.body().getUser());
-                        if (UserUtils.getLoggedUser(getApplicationContext()).getType().equalsIgnoreCase("2")){
+                        if (UserUtils.getLoggedUser(getApplicationContext()).getType().equalsIgnoreCase("2")) {
                             getCompanyInfo();
-                        }else{
+                        } else {
                             getUserInfo();
                         }
-                    }else{
+                    } else {
                         mLoadingDialog.dismiss();
                         Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                     }
@@ -101,7 +122,7 @@ public class LoginActivity extends MasterActivity {
                     Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        }else{
+        } else {
             mLoadingDialog.dismiss();
             Toast.makeText(this, response.message(), Toast.LENGTH_SHORT).show();
         }
@@ -113,18 +134,19 @@ public class LoginActivity extends MasterActivity {
         Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private void getUserInfo(){
+    private void getUserInfo() {
         UserController.getUserData(getApplicationContext(), new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
                 mLoadingDialog.dismiss();
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     User loggedUser = UserUtils.getLoggedUser(getApplicationContext());
                     loggedUser.setId(response.body().getUser().getId());
+                    loggedUser.setWorkField(response.body().getUser().getWorkField());
                     UserUtils.loginUser(getApplicationContext(), loggedUser);
                     startActivity(new Intent(getApplicationContext(), UserHomeActivity.class));
                     finish();
-                }else{
+                } else {
                     UserUtils.logoutUser(getApplicationContext());
                     Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -138,21 +160,20 @@ public class LoginActivity extends MasterActivity {
         });
     }
 
-    private void getCompanyInfo(){
+    private void getCompanyInfo() {
         UserController.getCompanyInfo(getApplicationContext(), new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
                 mLoadingDialog.dismiss();
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     User loggedUser = UserUtils.getLoggedUser(getApplicationContext());
                     loggedUser.setId(response.body().getUser().getId());
-                    loggedUser.setEmail(response.body().getUser().getEmail());
                     loggedUser.setCompanyAddress(response.body().getUser().getCompanyAddress());
                     loggedUser.setCompanyWebsite(response.body().getUser().getCompanyWebsite());
                     UserUtils.loginUser(getApplicationContext(), loggedUser);
                     startActivity(new Intent(getApplicationContext(), CompanyHomeActivity.class));
                     finish();
-                }else{
+                } else {
                     UserUtils.logoutUser(getApplicationContext());
                     Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }

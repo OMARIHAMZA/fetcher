@@ -1,19 +1,25 @@
 package omari.hamza.fetcher.views.activities.users;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+
+import org.w3c.dom.Text;
 
 import omari.hamza.fetcher.R;
 import omari.hamza.fetcher.core.utils.UserUtils;
 import omari.hamza.fetcher.views.activities.LoginActivity;
 import omari.hamza.fetcher.views.fragments.user.CategoriesFragment;
+import omari.hamza.fetcher.views.fragments.user.CompaniesFragment;
 import omari.hamza.fetcher.views.fragments.user.InboxFragment;
 import omari.hamza.fetcher.views.masters.MasterActivity;
 import retrofit2.Call;
@@ -33,8 +39,9 @@ public class UserHomeActivity extends MasterActivity {
     }
 
     private void setupBottomNavigation() {
-        mBottomNavigation.addItem(new AHBottomNavigationItem(getString(R.string.home), getDrawable(R.drawable.ic_home)));
-        mBottomNavigation.addItem(new AHBottomNavigationItem(getString(R.string.inbox), getDrawable(R.drawable.ic_chat)));
+        mBottomNavigation.addItem(new AHBottomNavigationItem(getString(R.string.home), getDrawable(R.drawable.ic_home), Color.parseColor("#AA50AB")));
+        mBottomNavigation.addItem(new AHBottomNavigationItem(getString(R.string.inbox), getDrawable(R.drawable.ic_chat), Color.parseColor("#F24675")));
+        mBottomNavigation.addItem(new AHBottomNavigationItem(getString(R.string.my_comps), getDrawable(R.drawable.ic_work_black_24dp), Color.parseColor("#7558D2")));
 
 
         // Change colors
@@ -43,20 +50,30 @@ public class UserHomeActivity extends MasterActivity {
         mBottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 
         mBottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
-            switch (position){
-                case 0:{
+            switch (position) {
+                case 0: {
+                    ((TextView) findViewById(R.id.title_textView)).setText("Categories");
                     loadFragment(new CategoriesFragment());
                     break;
                 }
 
-                case 1:{
+                case 1: {
+                    ((TextView) findViewById(R.id.title_textView)).setText("Inbox");
                     loadFragment(new InboxFragment());
+                    break;
+                }
+
+                case 2: {
+                    ((TextView) findViewById(R.id.title_textView)).setText("Companies");
+                    loadFragment(new CompaniesFragment());
                     break;
                 }
             }
             return true;
         });
 
+        mBottomNavigation.setColored(true);
+        mBottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
     }
 
     @Override

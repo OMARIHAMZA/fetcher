@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -14,7 +15,11 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okio.ByteString;
 import omari.hamza.fetcher.core.apis.UserServices;
+import omari.hamza.fetcher.core.models.User;
+import omari.hamza.fetcher.core.models.response.CompaniesResponse;
+import omari.hamza.fetcher.core.models.response.MessageResponse;
 import omari.hamza.fetcher.core.models.response.MessagesResponse;
+import omari.hamza.fetcher.core.models.response.RatingResponse;
 import omari.hamza.fetcher.core.models.response.UserInfoResponse;
 import omari.hamza.fetcher.core.utils.RetrofitClientInstance;
 import omari.hamza.fetcher.core.utils.UserUtils;
@@ -32,6 +37,12 @@ public class UserController {
     public static void getUserInfo(@NonNull Context context, Callback<MessagesResponse> callback) {
         UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
         Call<MessagesResponse> call = userServices.getUserInfo(UserUtils.getUserToken(context));
+        call.enqueue(callback);
+    }
+
+    public static void updateToken(@NonNull Context context, Callback<MessagesResponse> callback) {
+        UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
+        Call<MessagesResponse> call = userServices.refreshToken(UserUtils.getUserToken(context));
         call.enqueue(callback);
     }
 
@@ -84,6 +95,49 @@ public class UserController {
                 prepareFilePart(context, "photo", idImage == null ? cvImage : idImage),
                 idImage == null ? MultipartBody.Part.create(RequestBody.create(MediaType.parse("image/*"), "")) : prepareFilePart(context, "id_photo", idImage),
                 cvImage == null ? MultipartBody.Part.create(RequestBody.create(MediaType.parse("image/*"), "")) : prepareFilePart(context, "cv", cvImage));
+        call.enqueue(callback);
+    }
+
+
+    public static void getUserRating(@NonNull Context context, Callback<RatingResponse> callback) {
+        UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
+        Call<RatingResponse> call = userServices.getPersonRating(UserUtils.getLoggedUser(context).getId());
+        call.enqueue(callback);
+
+    }
+
+    public static void updateUserInfo(@NonNull Context context, String work, String address, Callback<MessageResponse> callback) {
+        UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
+        Call<MessageResponse> call = userServices.updateUserInfo(UserUtils.getUserToken(context),
+                UserUtils.getLoggedUser(context).getId(),
+                address,
+                work);
+        call.enqueue(callback);
+    }
+
+    public static void getEmploymentCompanies(@NonNull Context context, Callback<CompaniesResponse> callback) {
+        UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
+        Call<CompaniesResponse> call = userServices.getCompaniesByEmployment(
+                UserUtils.getUserToken(context),
+                UserUtils.getLoggedUser(context).getId()
+        );
+        call.enqueue(callback);
+    }
+
+    public static void getTrainingCompanies(@NonNull Context context, Callback<CompaniesResponse> callback) {
+        UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
+        Call<CompaniesResponse> call = userServices.getCompaniesByTraining(
+                UserUtils.getUserToken(context),
+                UserUtils.getLoggedUser(context).getId()
+        );
+        call.enqueue(callback);
+    }
+
+    public static void rateCompany(@NonNull Context context, int rating, int companyId, Callback<MessageResponse> callback) {
+        UserServices userServices = RetrofitClientInstance.getRetrofitInstance().create(UserServices.class);
+        Call<MessageResponse> call = userServices.rateCompany(UserUtils.getUserToken(context),
+                UserUtils.getLoggedUser(context).getId(), companyId,
+                rating);
         call.enqueue(callback);
     }
 

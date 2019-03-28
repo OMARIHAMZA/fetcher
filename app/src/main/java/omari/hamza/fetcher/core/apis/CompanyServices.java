@@ -5,6 +5,7 @@ import omari.hamza.fetcher.core.models.response.MessageResponse;
 import omari.hamza.fetcher.core.models.response.OfferApplicationsResponse;
 import omari.hamza.fetcher.core.models.response.OffersResponse;
 import omari.hamza.fetcher.core.models.response.PersonInfoResponse;
+import omari.hamza.fetcher.core.models.response.RatingResponse;
 import omari.hamza.fetcher.core.models.response.StaffResponse;
 import omari.hamza.fetcher.core.models.response.UserInfoResponse;
 import retrofit2.Call;
@@ -122,4 +123,6 @@ public interface CompanyServices {
                                      @Field("company_id") int companyId,
                                      @Field("rating") int rating);
 
+    @GET("/api/evaluations/getCompanyEvaluations/{company_id}")
+    Call<RatingResponse> getCompanyRatings(@Path("company_id") int companyId);
 }

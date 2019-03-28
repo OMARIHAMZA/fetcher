@@ -9,7 +9,8 @@ public class Person {
     @SerializedName("person_id")
     private int personId;
 
-    private String name = "HAMZA";
+    @SerializedName("name")
+    private String name;
 
     @SerializedName("employment_id")
     private int employeeId;
