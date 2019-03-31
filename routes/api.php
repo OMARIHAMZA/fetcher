@@ -166,8 +166,9 @@ Route::group([
     // Get
     Route::get('companies','Admin@companies');
     Route::get('people','Admin@people');
+    Route::get('unActivatedUsers','Admin@unActivatedUsers');
 
-
+    Route::post('activateUser','Admin@activateUser');
     Route::post('addUser', 'Admin@addUser');
     Route::post('deleteCompany', 'Admin@deleteCompany');
     Route::post('deletePerson', 'Admin@deletePerson');

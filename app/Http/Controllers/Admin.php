@@ -6,6 +6,7 @@ use App\Company;
 use App\Person;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Admin extends Controller
 {
@@ -18,6 +19,7 @@ class Admin extends Controller
 
     public function companies(){
         $data = Company::join('users','companies.user_id','=','users.id')
+            ->where('users.status','=','1')
             ->get();
 
         return response()->json([
@@ -28,11 +30,55 @@ class Admin extends Controller
 
     public function people(){
         $data = Person::join('users','people.user_id','=','users.id')
+            ->where('users.status','=','1')
             ->get();
 
         return response()->json([
             'success' => true,
             'data' => $data
+        ]);
+    }
+
+    public function unActivatedUsers(){
+        $data = DB::table('users')
+            ->leftJoin('people','people.user_id','=','users.id')
+            ->leftJoin('companies','companies.user_id','=','users.id')
+            ->where('users.status','=','0')
+            ->get(["users.id","users.name","users.email","users.mobile","users.type","users.status",
+                "people.id_photo","companies.commercial_record"
+            ]);
+
+        foreach ($data as $user){
+            // If Company
+            if($user->type == 2){
+                $user->evidence = $user->commercial_record;
+                $user->type = "Company";
+            }
+            // If Person
+            elseif ($user->type == 3){
+                $user->evidence = $user->id_photo;
+                $user->type = "Person";
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+    public function activateUser(Request $request){
+        $this->validate($request,[
+            'user_id' => 'required|integer',
+        ]);
+
+        $user = User::findOrFail($request->input('user_id'));
+        $user->status = 1;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User Activated'
         ]);
     }
 
@@ -47,6 +93,7 @@ class Admin extends Controller
 
         $attr = $request->only(['name', 'email','mobile','type','password']);
         $attr['password'] = bcrypt($attr['password']);
+        $attr['status'] = 1;
 
         $user = new User($attr);
         $user->save();

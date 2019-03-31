@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Person;
+use App\User;
 use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -29,8 +31,12 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = array_merge(request(['email', 'password']),['status' => 1]);
         if (! $token = auth()->attempt($credentials)) {
+            $credentials = request(['email', 'password']);
+            if ($second_token = auth()->attempt($credentials)) {
+                return response()->json(['success'=> false ,'error' => 'Pending Activation'], 401);
+            }
             return response()->json(['success'=> false ,'error' => 'Unauthorized'], 401);
         }
 
@@ -55,19 +61,28 @@ class AuthController extends Controller
 
         if($attr['type']==2){
             $company = new Company;
-
+            if($request->hasFile('commercial_record')){
+                $path = $request->file('commercial_record')->store('CompanyCommercialRecords');
+                $company->commercial_record = $path;
+            }
             $user->company()->save($company);
         }
 
         if($attr['type']==3){
             $person = new Person();
+            if($request->hasFile('id_photo')){
+                $id_photo = $request->file('id_photo')->store('PeopleIds');
+                $person->id_photo = $id_photo;
+            }
 
             $user->person()->save($person);
         }
 
-        $token = auth()->login($user);
+        /*$token = auth()->login($user);
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token);*/
+
+        return response()->json(['success'=> true ,'message' => 'Pending Activation']);
     }
 
     /**
