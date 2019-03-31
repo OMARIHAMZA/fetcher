@@ -30,5 +30,8 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+  public formLink(link) {
+    return `http://127.0.0.1:8000/storage/${link}`;
+  }
 
 }

@@ -7,7 +7,9 @@
     <th scope="col">Name</th>
     <th scope="col">Email</th>
     <th scope="col">Mobile</th>
-    <th scope="col">Delete</th>
+    <th scope="col">Type</th>
+    <th scope="col">Evidance</th>
+    <th scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -15,6 +17,8 @@
     <th scope="row">{{user.name}}</th>
     <td>{{user.email}}</td>
     <td>{{user.mobile}}</td>
+    <td>{{user.type}}</td>
+    <td><a href="{{formLink(user.evidence)}}" target="_blank">Open</a></td>
     <td><button class="btn btn-success text-light text-center" (click)="activateUser(user.id,i)">activate</button></td>
   </tr>
   </tbody>
