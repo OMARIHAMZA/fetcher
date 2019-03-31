@@ -43,5 +43,16 @@ abstract class Opportunities extends Controller
         ]);
     }
 
+    public function search($title){
+        $data = $this->opportunity
+            ->where('title','LIKE','%'.$title.'%')
+        ->get()
+        ;
+        return response()->json([
+            'success'=>true,
+            'data'=> $data
+        ]);
+    }
+
     abstract public function delete(Request $request);
 }
