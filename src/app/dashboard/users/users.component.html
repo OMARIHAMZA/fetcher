@@ -6,7 +6,6 @@
   <tr>
     <th scope="col">Name</th>
     <th scope="col">Email</th>
-    <th scope="col">Address</th>
     <th scope="col">Mobile</th>
     <th scope="col">Delete</th>
   </tr>
@@ -15,7 +14,6 @@
   <tr *ngFor="let user of users;let i = index">
     <th scope="row">{{user.name}}</th>
     <td>{{user.email}}</td>
-    <td>{{user.address}}</td>
     <td>{{user.mobile}}</td>
     <td><button class="btn btn-success text-light text-center" (click)="activateUser(user.id,i)">activate</button></td>
   </tr>
