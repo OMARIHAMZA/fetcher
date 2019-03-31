@@ -17,6 +17,14 @@ export class AdminService {
   public getPeople() {
     return this.http.get(`${this.url}people`);
   }
+  public getUnActivatedUsers(){
+    return this.http.get(`${this.url}unActivatedUsers`,this.getOptions());
+  }
+  public activateUser(user_id) {
+    const fd = new FormData();
+    fd.append('user_id', user_id);
+    return this.http.post(`${this.url}activateUser`, fd, this.getOptions());
+  }
   public deletePerson(person_id) {
     const fd = new FormData();
     fd.append('person_id', person_id);

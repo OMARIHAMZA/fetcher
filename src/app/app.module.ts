@@ -13,11 +13,13 @@ import {AdminService} from './admin.service';
 import {AuthService} from './auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersComponent } from './dashboard/users/users.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent , children: [
       { path: 'companies', component: CompaniesComponent },
       { path: 'people',      component: PersonsComponent },
+      { path: 'users',      component: UsersComponent },
       { path: 'create',      component: CreateFormComponent },
       { path: '',
         redirectTo: 'companies',
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     CompaniesComponent,
     PersonsComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
