@@ -32,13 +32,13 @@
     <string name="click_here_to_upload" translatable="false"><u>CLICK HERE TO UPLOAD</u></string>
     <string name="company_account" translatable="false">Company Account</string>
     <string name="applications" translatable="false">APPLICATIONS</string>
-    <string name="my_offers" translatable="false">MY OFFERS</string>
+    <string name="my_offers" translatable="false">MY JOBS</string>
     <string name="subject" translatable="false">Subject</string>
     <string name="title" translatable="false">Title</string>
     <string name="location" translatable="false">Location</string>
     <string name="requirements" translatable="false">Requirements</string>
     <string name="paid" translatable="false">Paid</string>
-    <string name="salary" translatable="false">Salary</string>
+    <string name="salary" translatable="false">Salary (Per Day)</string>
     <string name="days">Days</string>
     <string name="create">Create</string>
     <string name="category">Category</string>
@@ -47,7 +47,9 @@
     <string name="refresh">Refresh</string>
     <string name="view_applications">View Applications</string>
     <string name="upload_commercial_record"><u>UPLOAD COMMERCIAL RECORD</u></string>
-    <string name="staff">Staff</string>
     <string name="rate">Rate</string>
     <string name="my_comps">MY COMPANIES</string>
+    <string name="employee_account">Employee Account</string>
+    <string name="select_id_photo"><u>SELECT ID PHOTO</u></string>
+    <string name="rating">Rating</string>
 </resources>

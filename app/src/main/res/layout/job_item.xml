@@ -40,7 +40,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Omari Co."
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,8 +67,7 @@
                     android:drawableStart="@drawable/ic_location"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:padding="8dp"
-                    android:text="Damascus" />
+                    android:padding="8dp" />
 
 
                 <TextView
@@ -78,8 +76,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_work_black_24dp"
                     android:drawablePadding="8dp"
-                    android:padding="8dp"
-                    android:text="Part Time" />
+                    android:padding="8dp" />
 
 
             </LinearLayout>

@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
     android:background="@drawable/gradient_background"
+    android:layoutDirection="ltr"
     tools:context=".views.activities.SignupActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mToolbar"
@@ -18,20 +25,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/sign_up"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/mToolbar" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/email_editText"
@@ -77,6 +84,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:met_baseColor="@color/white"
         app:met_floatingLabel="highlight"
+        app:met_helperText="+966---------"
         app:met_helperTextColor="@color/white"
         app:met_primaryColor="@color/white"
         app:met_textColorHint="@color/white"
@@ -130,7 +138,7 @@
         android:id="@+id/signup_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_borders"
         android:text="@string/sign_up_no_dot"
@@ -138,19 +146,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/password_ediText"
         app:layout_constraintStart_toStartOf="@+id/password_ediText"
-        app:layout_constraintTop_toBottomOf="@+id/account_type_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/select_photo_textView" />
 
     <Switch
         android:id="@+id/account_type_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:padding="8dp"
         android:switchPadding="8dp"
-        android:text="@string/company_account"
+        android:text="@string/employee_account"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/signup_button"
+        app:layout_constraintBottom_toTopOf="@+id/select_photo_textView"
         app:layout_constraintStart_toStartOf="@+id/password_ediText"
         app:layout_constraintTop_toBottomOf="@+id/password_ediText" />
 
@@ -168,4 +176,35 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/company_account"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/account_type_switch"
+        app:layout_constraintEnd_toEndOf="@+id/password_ediText"
+        app:layout_constraintStart_toEndOf="@+id/account_type_switch"
+        app:layout_constraintTop_toTopOf="@+id/account_type_switch" />
+
+    <TextView
+        android:id="@+id/select_photo_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/select_id_photo"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/signup_button"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/account_type_switch"
+        app:layout_constraintTop_toBottomOf="@+id/account_type_switch" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

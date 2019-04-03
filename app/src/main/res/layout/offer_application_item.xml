@@ -45,7 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:text="APPLICANT@MAIL.COM"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toStartOf="@+id/reject_cardView"
         app:layout_constraintStart_toStartOf="@+id/name_textView"

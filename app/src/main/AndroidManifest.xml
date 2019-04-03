@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="omari.hamza.fetcher">
+    package="com.fetcher">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.activities.companies.StaffActivity"></activity>
+        <activity android:name=".views.activities.users.SearchActivity"></activity>
+        <activity android:name=".views.activities.companies.StaffActivity" />
         <activity
             android:name=".views.activities.companies.CompanyProfileActivity"
             android:theme="@style/RegistrationTheme" />

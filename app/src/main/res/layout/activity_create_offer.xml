@@ -94,7 +94,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:hint="Duration"
+            android:hint="Duration (Days)"
             android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/start_date_editText"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -127,7 +127,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:hint="Seats"
+            android:hint="Number of Vacancies"
             app:layout_constraintBottom_toTopOf="@+id/requirements_editText"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintHorizontal_bias="0.0"
@@ -220,7 +220,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:switchPadding="16dp"
-            android:text="@string/training"
+            android:text="Part Time Job"
             app:layout_constraintBottom_toTopOf="@+id/paid_switch"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/requirements_editText" />
@@ -265,6 +265,19 @@
             app:layout_constraintStart_toStartOf="@+id/subject_editText"
             app:layout_constraintTop_toBottomOf="@+id/subject_editText"
             app:ms_hint="@string/category" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Internship"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/training_switch"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toEndOf="@+id/training_switch"
+            app:layout_constraintTop_toTopOf="@+id/training_switch" />
 
     </android.support.constraint.ConstraintLayout>
 
