@@ -1,0 +1,18 @@
+fetcher-app.com
+
+User: 616172016
+password: Aldana123!
+
+https://login.ionos.com/?shoplogin=enabled&linkId=hd.nav.login&ucuoId=PUlead:default.WH.US-20190401125200-9AF9149AA3C7A29B980AD0CB11F2D3EA.TCbs5a
+
+DB_NAME: dbs35178
+DB_USER: dbu6177
+DB_PASSWORD: Aldana123!
+DB_HOST: db5000040183.hosting-data.io
+
+FTP:
+protocol: SFTP
+host : access779438631.webspace-data.io
+prot : 22
+user: u96978968
+password: Aldana123!
