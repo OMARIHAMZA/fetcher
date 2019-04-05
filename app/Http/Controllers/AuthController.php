@@ -64,6 +64,7 @@ class AuthController extends Controller
             if($request->hasFile('commercial_record')){
                 $path = $request->file('commercial_record')->store('CompanyCommercialRecords');
                 $company->commercial_record = $path;
+                $company->name = $request->input('name');
             }
             $user->company()->save($company);
         }
