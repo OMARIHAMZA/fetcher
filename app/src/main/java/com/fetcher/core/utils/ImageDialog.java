@@ -20,7 +20,7 @@ public class ImageDialog {
         mDialog.setContentView(R.layout.image_dialog);
         ImageView imageView = mDialog.findViewById(R.id.dialog_imageView);
         Glide.with(activity)
-                .load(RetrofitClientInstance.BASE_URL + "storage/" + imageUrl)
+                .load(RetrofitClientInstance.BASE_URL + "fetcher/public/uploads/" + imageUrl)
                 .into(imageView);
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }

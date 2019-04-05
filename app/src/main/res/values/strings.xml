@@ -52,4 +52,7 @@
     <string name="employee_account">Employee Account</string>
     <string name="select_id_photo"><u>SELECT ID PHOTO</u></string>
     <string name="rating">Rating</string>
+    <string name="add_new_project"><u>ADD NEW PROJECT</u></string>
+    <string name="add_new_branch"><u>ADD NEW BRANCH</u></string>
+    <string name="add_photo"><u>ADD PHOTO</u></string>
 </resources>

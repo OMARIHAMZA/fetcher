@@ -11,6 +11,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import com.fetcher.core.apis.CompanyServices;
+import com.fetcher.core.models.CompanyInfo;
 import com.fetcher.core.models.response.MessageResponse;
 import com.fetcher.core.models.response.OfferApplicationsResponse;
 import com.fetcher.core.models.response.OffersResponse;
@@ -59,6 +60,37 @@ public class CompanyController {
         call.enqueue(callback);
     }
 
+
+    public static void getCompanyInfo(@NonNull Context context, Callback<CompanyInfo> callback) {
+        CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
+        Call<CompanyInfo> call = companyServices.getCompanyInfo(UserUtils.getLoggedUser(context).getId());
+        call.enqueue(callback);
+    }
+
+    public static void addProject(@NonNull Context context, String projectName, String projectDescription, Callback<MessageResponse> callback) {
+        CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
+        Call<MessageResponse> call = companyServices.addProject(UserUtils.getUserToken(context),
+                UserUtils.getLoggedUser(context).getId(),
+                projectName,
+                projectDescription);
+        call.enqueue(callback);
+    }
+
+    public static void addBranch(@NonNull Context context, String address, Callback<MessageResponse> callback) {
+        CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
+        Call<MessageResponse> call = companyServices.addBranch(UserUtils.getUserToken(context),
+                address,
+                UserUtils.getLoggedUser(context).getId());
+        call.enqueue(callback);
+    }
+
+    public static void addPhoto(@NonNull Context context, Uri uri, Callback<MessageResponse> callback) {
+        CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
+        Call<MessageResponse> call = companyServices.addPhoto(UserUtils.getUserToken(context),
+                UserUtils.getLoggedUser(context).getId(),
+                prepareFilePart(context, "photo", uri));
+        call.enqueue(callback);
+    }
 
     public static void createTrainingOffer(
             @NonNull Context context,

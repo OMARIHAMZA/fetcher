@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    static final String BASE_URL = "https://pacific-temple-51499.herokuapp.com";
+    public static final String BASE_URL = "http://fetcher-app.com/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {

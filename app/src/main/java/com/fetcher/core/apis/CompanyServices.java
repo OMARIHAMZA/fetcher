@@ -1,12 +1,15 @@
 package com.fetcher.core.apis;
 
 import okhttp3.MultipartBody;
+
+import com.fetcher.core.models.CompanyInfo;
 import com.fetcher.core.models.response.MessageResponse;
 import com.fetcher.core.models.response.OfferApplicationsResponse;
 import com.fetcher.core.models.response.OffersResponse;
 import com.fetcher.core.models.response.PersonInfoResponse;
 import com.fetcher.core.models.response.RatingResponse;
 import com.fetcher.core.models.response.StaffResponse;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -29,6 +32,27 @@ public interface CompanyServices {
             @Field("website") String website,
             @Field("official_email") String email,
             @Field("main_address") String address);
+
+    @GET("api/companies/info/{company_id}")
+    Call<CompanyInfo> getCompanyInfo(@Path("company_id") int companyId);
+
+    @FormUrlEncoded
+    @POST("api/projects/add")
+    Call<MessageResponse> addProject(@Header("Authorization") String token, @Field("company_id") int companyId,
+                                     @Field("name") String projectName,
+                                     @Field("description") String projectDescription);
+
+    @FormUrlEncoded
+    @POST("api/companies/addBranch")
+    Call<MessageResponse> addBranch(@Header("Authorization") String token,
+                                    @Field("address") String address,
+                                    @Field("company_id") int companyId);
+
+    @Multipart
+    @POST("api/companies/addCompanyPhoto")
+    Call<MessageResponse> addPhoto(@Header("Authorization") String token,
+                                   @Part("company_id") int companyId,
+                                   @Part MultipartBody.Part photo);
 
     @Multipart
     @POST("api/companies/update/{company_id}")
