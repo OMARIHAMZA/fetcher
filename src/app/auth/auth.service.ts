@@ -10,7 +10,7 @@ export class AuthService {
 
   private token = null;
   private user = null;
-  readonly url = 'http://127.0.0.1:8000/api/auth/';
+  readonly url = 'http://fetcher-app.com/api/auth/';
 
   public login(email, password) {
     const fd = new FormData();

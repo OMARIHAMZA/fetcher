@@ -10,7 +10,7 @@ export class AdminService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  readonly url = 'http://127.0.0.1:8000/api/admin/';
+  readonly url = 'http://fetcher-app.com/api/admin/';
   public getCompanies() {
     return this.http.get(`${this.url}companies`);
   }
