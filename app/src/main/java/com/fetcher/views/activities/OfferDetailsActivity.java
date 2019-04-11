@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import com.fetcher.R;
 import com.fetcher.core.controllers.UserController;
+import com.fetcher.core.models.User;
 import com.fetcher.core.models.response.MessagesResponse;
 import com.fetcher.core.models.Offer;
 import com.fetcher.core.utils.LoadingDialog;
 import com.fetcher.core.utils.UserUtils;
+import com.fetcher.views.activities.companies.CompanyProfileActivity;
 import com.fetcher.views.activities.companies.OfferApplicationsActivity;
 import com.fetcher.views.masters.MasterActivity;
 
@@ -26,7 +28,7 @@ public class OfferDetailsActivity extends MasterActivity {
 
     private Toolbar mToolbar;
     private TextView jobTitleTextView, companyNameTextView, locationTextView, typeTextView, descriptionTextView;
-    private Button applyButton;
+    private Button applyButton, viewCompanyButton;
     private Offer offer;
     private LoadingDialog mLoadingDialog;
 
@@ -61,6 +63,8 @@ public class OfferDetailsActivity extends MasterActivity {
         typeTextView = findViewById(R.id.offer_type_textView);
         descriptionTextView = findViewById(R.id.offer_description_textView);
         applyButton = findViewById(R.id.button);
+        viewCompanyButton = findViewById(R.id.view_company_profile_button);
+
 
         descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -116,6 +120,15 @@ public class OfferDetailsActivity extends MasterActivity {
             }
         });
 
+
+        viewCompanyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), CompanyProfileActivity.class);
+            User user = new User();
+            user.setId(offer.getCompanyId());
+            intent.putExtra("company", user);
+            startActivity(intent);
+        });
+
     }
 
     @Override
@@ -128,6 +141,8 @@ public class OfferDetailsActivity extends MasterActivity {
         descriptionTextView.setText("Requirements:\n\n" + offer.getRequirements()
                 + "\n\nSalary: " + offer.getSalary() + " Perday"
                 + "\n\nDays: " + offer.getDays());
+
+
     }
 
     @Override

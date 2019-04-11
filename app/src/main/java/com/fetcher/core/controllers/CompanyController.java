@@ -61,9 +61,9 @@ public class CompanyController {
     }
 
 
-    public static void getCompanyInfo(@NonNull Context context, Callback<CompanyInfo> callback) {
+    public static void getCompanyInfo(int companyId, Callback<CompanyInfo> callback) {
         CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
-        Call<CompanyInfo> call = companyServices.getCompanyInfo(UserUtils.getLoggedUser(context).getId());
+        Call<CompanyInfo> call = companyServices.getCompanyInfo(companyId);
         call.enqueue(callback);
     }
 
@@ -237,9 +237,9 @@ public class CompanyController {
         call.enqueue(callback);
     }
 
-    public static void getCompanyRating(@NonNull Context context, Callback<RatingResponse> callback) {
+    public static void getCompanyRating(int companyId, Callback<RatingResponse> callback) {
         CompanyServices companyServices = RetrofitClientInstance.getRetrofitInstance().create(CompanyServices.class);
-        Call<RatingResponse> call = companyServices.getCompanyRatings(UserUtils.getLoggedUser(context).getId());
+        Call<RatingResponse> call = companyServices.getCompanyRatings(companyId);
         call.enqueue(callback);
     }
 

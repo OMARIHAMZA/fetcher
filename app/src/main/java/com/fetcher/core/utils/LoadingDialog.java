@@ -27,7 +27,10 @@ public class LoadingDialog {
     }
 
     public void dismiss() {
-        mDialog.dismiss();
+        try {
+            mDialog.dismiss();
+        } catch (Exception ignored) {
+        }
     }
 
 }

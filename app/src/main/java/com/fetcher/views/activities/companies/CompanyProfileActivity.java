@@ -54,6 +54,7 @@ public class CompanyProfileActivity extends MasterActivity implements RefreshAct
     private CardView photosCardView;
     private RecyclerView photosRecyclerView;
     private TextView addPhotoTextView;
+    private User currentCompany;
     private boolean uploadingCompanyPhoto = false;
 
     @Override
@@ -64,7 +65,7 @@ public class CompanyProfileActivity extends MasterActivity implements RefreshAct
     }
 
     private void getCompanyRating() {
-        CompanyController.getCompanyRating(getApplicationContext(), new Callback<RatingResponse>() {
+        CompanyController.getCompanyRating(currentCompany.getId(), new Callback<RatingResponse>() {
             @Override
             public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
                 if (response.isSuccessful()) {
@@ -148,12 +149,20 @@ public class CompanyProfileActivity extends MasterActivity implements RefreshAct
 
     @Override
     protected void getData() {
-        User loggedCompany = UserUtils.getLoggedUser(getApplicationContext());
-        nameTextView.setText(loggedCompany.getUsername());
-        websiteTextView.setText(loggedCompany.getCompanyWebsite());
-        emailTextView.setText(loggedCompany.getEmail());
-        mobileTextView.setText(loggedCompany.getMobile());
-        addressTextView.setText(loggedCompany.getCompanyAddress());
+        currentCompany = (User) getIntent().getSerializableExtra("company");
+        if (currentCompany == null) {
+            currentCompany = UserUtils.getLoggedUser(getApplicationContext());
+        } else {
+            addPhotoTextView.setVisibility(View.GONE);
+            addProjectTextView.setVisibility(View.GONE);
+            addBranchTextView.setVisibility(View.GONE);
+        }
+
+        nameTextView.setText(currentCompany.getUsername());
+        websiteTextView.setText(currentCompany.getCompanyWebsite());
+        emailTextView.setText(currentCompany.getEmail());
+        mobileTextView.setText(currentCompany.getMobile());
+        addressTextView.setText(currentCompany.getCompanyAddress());
     }
 
     @Override
@@ -168,7 +177,9 @@ public class CompanyProfileActivity extends MasterActivity implements RefreshAct
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.profile_menu, menu);
+        if (getIntent().getSerializableExtra("company") == null) {
+            getMenuInflater().inflate(R.menu.profile_menu, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -206,7 +217,7 @@ public class CompanyProfileActivity extends MasterActivity implements RefreshAct
 
     private void getCompanyInfo() {
         mLoadingDialog.show();
-        CompanyController.getCompanyInfo(getApplicationContext(), new Callback<CompanyInfo>() {
+        CompanyController.getCompanyInfo(currentCompany.getId(), new Callback<CompanyInfo>() {
             @Override
             public void onResponse(@NonNull Call<CompanyInfo> call, @NonNull Response<CompanyInfo> response) {
                 mLoadingDialog.dismiss();
@@ -231,6 +242,14 @@ public class CompanyProfileActivity extends MasterActivity implements RefreshAct
                     if (response.body().getCompanyPhotos().size() > 0) {
                         photosRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
                         photosRecyclerView.setAdapter(new CompanyPhotosAdapter(response.body().getCompanyPhotos(), CompanyProfileActivity.this));
+                    }
+
+                    if (currentCompany != null){
+                        nameTextView.setText(response.body().getCompany().getName());
+                        emailTextView.setText(response.body().getCompany().getEmail());
+                        addressTextView.setText(response.body().getCompany().getAddress());
+                        websiteTextView.setText(response.body().getCompany().getWebsite());
+                        mobileTextView.setVisibility(View.GONE);
                     }
                 }
             }

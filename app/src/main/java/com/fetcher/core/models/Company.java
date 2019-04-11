@@ -16,6 +16,17 @@ public class Company {
     @SerializedName("website")
     private String website;
 
+    @SerializedName("main_address")
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getName() {
         return name;
     }
